@@ -37,6 +37,7 @@ public static void main(String[] aStrings){
 
      writer.close();
      reader.close();
+     server.close();
 
 
 

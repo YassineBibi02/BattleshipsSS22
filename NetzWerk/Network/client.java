@@ -52,6 +52,8 @@ public class client {
 
         reader.close();
         writer.close();
+        Client.close();
+        In.close();
         System.out.println("Client Process Closed");
 
     } catch (UnknownHostException e) {
