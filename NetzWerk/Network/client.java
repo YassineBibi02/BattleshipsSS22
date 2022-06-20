@@ -28,19 +28,31 @@ public class client {
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
         Scanner In = new Scanner(System.in);
+        String Txt = null;
 
-        writer.write(In.nextLine()+"\n");
+        do{
+        System.out.printf("Message : ");
+        Txt = In.nextLine();
+        
+        System.out.println();
+        writer.write(Txt+"\n");
         writer.flush();
 
         String s = null;
-        while ( ( s = reader.readLine() ) != null ){
-
+        s = reader.readLine();
+        while ( !s.equals("Close") && !Txt.equals("Close") ){
+         
          System.out.println(s );
+        
+         break;
         }
+        
+        } while (!Txt.equals("Close"));
+
 
         reader.close();
         writer.close();
-
+        System.out.println("Client Process Closed");
 
     } catch (UnknownHostException e) {
         System.out.println("Host is not reachable");

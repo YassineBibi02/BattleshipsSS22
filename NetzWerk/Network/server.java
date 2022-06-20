@@ -31,6 +31,7 @@ public static void main(String[] aStrings){
          writer.write("client:" + s + "\n");
          writer.flush();
          System.out.println("recieved from client :" + s );
+         if ( s.equals("Close")){break;}
 
      }
 
@@ -39,6 +40,8 @@ public static void main(String[] aStrings){
 
 
 
+
+     System.out.println("Server Closed");
     }catch(IOException e) {
      e.printStackTrace();
 
