@@ -11,8 +11,10 @@ public class server {
 
 
  protected static final int PORT = 1225;    
+ private static final int THREAD_COUNT = 2;
+
  private static ArrayList<ClientHanlder> Clients = new ArrayList<>();
- private static ExecutorService pool = Executors.newFixedThreadPool(2);
+ private static ExecutorService pool = Executors.newFixedThreadPool(THREAD_COUNT);
  
  public static void main(String[] aStrings){
     ServerSocket server;
@@ -23,7 +25,7 @@ public class server {
        System.out.println("[Server] Started , waiting for Connections ..");
        Socket Client = server.accept();
        System.out.println("[Server] Client Conntected !");
-       ClientHanlder ClientThread = new ClientHanlder(Client);
+       ClientHanlder ClientThread = new ClientHanlder(Client, Clients);
        Clients.add(ClientThread);
        pool.execute(ClientThread);
       

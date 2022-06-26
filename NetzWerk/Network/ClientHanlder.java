@@ -5,18 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ClientHanlder implements Runnable {
 
     private Socket client;
     private PrintWriter writer;
     private BufferedReader reader;
+    private ArrayList<ClientHanlder> Clients ;
 
 
-    public ClientHanlder (Socket clientSocket) throws IOException {
+
+    public ClientHanlder (Socket clientSocket, ArrayList<ClientHanlder> C) throws IOException {
         this.client = clientSocket;
         this.reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        this.writer = new PrintWriter(client.getOutputStream());
+        this.writer = new PrintWriter(client.getOutputStream(), true);
+        this.Clients = C;
     }
      
 
@@ -25,18 +29,16 @@ public class ClientHanlder implements Runnable {
     public void run() {
 
        try {
-       
+//_________________________________________________ essentially server functionality _____________________________________
          String s = null ;
      
          while ( ( s = reader.readLine() ) != null ) {
-             writer.write("client: " + s + "\n");
-             writer.flush();
+             ToAll(s);
              System.out.println("recieved from client :" + s );
              if ( s.equals("Close")){break;}
      
-         }
-     
-        
+         }   
+//_________________________________________________________________________________________________________________________
         }
         catch( IOException e){
             System.out.println("[ClientHandler] Error Running the ClientHandler Thread!");
@@ -54,4 +56,13 @@ public class ClientHanlder implements Runnable {
         
     }
     
+
+
+    private void ToAll(String msg){
+       for ( ClientHanlder aClient : Clients ){
+         if (aClient== this) {} else {
+         aClient.writer.println("[Server]: "+msg);}
+       }
+         
+    }
 }

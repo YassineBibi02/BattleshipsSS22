@@ -1,8 +1,7 @@
 package Network;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -18,36 +17,30 @@ public class client {
         
       try {
         Socket Client = new Socket("localhost", 1225);
+        Client_Listener Ears = new Client_Listener(Client);
         System.out.println("Client Started");
 
+        new Thread(Ears).start();
        
         PrintWriter writer = new PrintWriter(Client.getOutputStream());
-        BufferedReader reader = new BufferedReader(new InputStreamReader(Client.getInputStream()));
+
+//_________________________________________________________________________________________________________________________
 
         Scanner In = new Scanner(System.in);
         String Txt = null;
 
         do{
-          System.out.printf("Message : ");
+          
           Txt = In.nextLine();
           
-          System.out.println();
+
           writer.write(Txt+"\n");
           writer.flush();
-  
-          String s = null;
-          s = reader.readLine();
-          while ( !s.equals("Close") && !Txt.equals("Close") ){
-           
-            System.out.println(s );
-          
-            break;
-          }
           
         } while (!Txt.equals("Close"));
 
+//_________________________________________________________________________________________________________________________
 
-        reader.close();
         writer.close();
         Client.close();
         In.close();
