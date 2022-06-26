@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 public class server {
 
-
+ protected static final String IP = "localhost";
  protected static final int PORT = 1225;    
  private static final int THREAD_COUNT = 2;
 
@@ -22,7 +22,7 @@ public class server {
     try{ 
       server = new ServerSocket(PORT);
      while ( true ){ 
-       System.out.println("[Server] Started , waiting for Connections ..");
+       System.out.println("[Server] Waiting for Connections ..");
        Socket Client = server.accept();
        System.out.println("[Server] Client Conntected !");
        ClientHanlder ClientThread = new ClientHanlder(Client, Clients);

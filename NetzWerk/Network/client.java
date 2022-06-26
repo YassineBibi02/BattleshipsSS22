@@ -16,14 +16,13 @@ public class client {
 
         
       try {
-        Socket Client = new Socket("localhost", 1225);
+        Socket Client = new Socket(server.IP, server.PORT);
         Client_Listener Ears = new Client_Listener(Client);
         System.out.println("Client Started");
 
         new Thread(Ears).start();
        
         PrintWriter writer = new PrintWriter(Client.getOutputStream());
-
 //_________________________________________________________________________________________________________________________
 
         Scanner In = new Scanner(System.in);
