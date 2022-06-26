@@ -31,7 +31,9 @@ public class ClientHanlder implements Runnable {
        try {
 //_________________________________________________ essentially server functionality _____________________________________
          String s = null ;
-     
+         new Name();
+         String Naame = Name.Get_Name();
+         writer.println("/ws2 "+Naame);
          while ( ( s = reader.readLine() ) != null ) {
              ToAll(s);
              System.out.println("recieved from client :" + s );
@@ -59,9 +61,17 @@ public class ClientHanlder implements Runnable {
 
 
     private void ToAll(String msg){
+        String ClientName = "";
+        int firstspace = msg.indexOf(" ");
+         if ( firstspace != -1){
+            ClientName = msg.substring(0, firstspace+2);
+            msg = msg.substring(firstspace+3);}
+
        for ( ClientHanlder aClient : Clients ){
          if (aClient== this) {} else {
-         aClient.writer.println("[Server]: "+msg);}
+         
+
+         aClient.writer.println("["+ ClientName+"]: "+msg);}
        }
          
     }

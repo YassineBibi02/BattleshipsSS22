@@ -11,7 +11,7 @@ public class server {
 
  protected static final String IP = "localhost";
  protected static final int PORT = 1225;    
- private static final int THREAD_COUNT = 2;
+ private static final int THREAD_COUNT = 5;
 
  private static ArrayList<ClientHanlder> Clients = new ArrayList<>();
  private static ExecutorService pool = Executors.newFixedThreadPool(THREAD_COUNT);

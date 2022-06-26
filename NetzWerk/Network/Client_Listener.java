@@ -25,7 +25,13 @@ public class Client_Listener implements Runnable{
     try {
         while (true){
         serverCommand = reader.readLine();
-        System.out.println(serverCommand);
+        if (serverCommand.startsWith("/ws2")){
+           int Index =  serverCommand.indexOf("2");
+           client.Own_Name = serverCommand.substring(Index+2);
+        //    System.out.println("Intiliazed Name");
+
+        } else {
+        System.out.println(serverCommand);}
         }
     } catch (IOException e) {
         System.out.println("[Client_Listener] Couldnt Recieve Server responce");

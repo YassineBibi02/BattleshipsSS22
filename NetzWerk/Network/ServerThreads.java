@@ -8,11 +8,16 @@ public class ServerThreads {
     
 
   static class Zählen implements Runnable {
+   private final String Name = "Client ";
+   private int NameV = 1;
+   private String NName;
 
     @Override
     public void run() {
         for ( int i = 0 ; i < 10 ; i++){
-            System.out.printf("Zahlen : %d\n",i);
+            NName = Name + NameV;
+            NameV++;
+            System.out.printf("Zahlen : %s, %d\n",NName,i);
         }
         
     }
@@ -22,9 +27,9 @@ public class ServerThreads {
   public static void main(String[] arStrings) {
 
    Thread T1=   new Thread(new Zählen());
-   Thread T2=   new Thread(new Zählen());
+   
    T1.start();
-   T2.start();
+   
 
   }
 

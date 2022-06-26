@@ -9,31 +9,46 @@ import java.util.Scanner;
 
 
 public class client {
-    
+   static public String Own_Name ;
 
+ 
 
     public static void main(String[] Args){
+     
+    //  Scanner INside = new Scanner(System.in);
+    //  String Own_Name;
+    //  do {
+    //   System.out.println("Enter your Name (no Spaces): ");
+
+    //   Own_Name =  INside.nextLine();
+    //  } while (Own_Name.contains(" "));
+    //  System.out.printf("Welcome %s! Enjoy the Chat service! \n", Own_Name);
 
         
       try {
         Socket Client = new Socket(server.IP, server.PORT);
         Client_Listener Ears = new Client_Listener(Client);
-        System.out.println("Client Started");
+        // System.out.println("Client Started");
 
         new Thread(Ears).start();
-       
+        
         PrintWriter writer = new PrintWriter(Client.getOutputStream());
 //_________________________________________________________________________________________________________________________
 
         Scanner In = new Scanner(System.in);
         String Txt = null;
-
+        try {
+          Thread.sleep(20);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+        System.out.printf("Welcome %s! Enjoy the Chat service! \n", Own_Name);
         do{
           
           Txt = In.nextLine();
           
 
-          writer.write(Txt+"\n");
+          writer.write(Own_Name+" "+ Txt+"\n");
           writer.flush();
           
         } while (!Txt.equals("Close"));
@@ -43,6 +58,7 @@ public class client {
         writer.close();
         Client.close();
         In.close();
+        // INside.close();
         System.out.println("Client Process Closed");
 
     } catch (UnknownHostException e) {
