@@ -1,8 +1,9 @@
 package Network;
 
 
-import java.io.IOException;
+
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
@@ -10,8 +11,16 @@ import java.util.Scanner;
 
 public class client {
    static public String Own_Name ;
-
+   static public int offset = 0 ; 
  
+   public static int get_offset(){
+    // System.out.printf("Code #%d\n", offset);
+    return offset;
+   }
+
+  //  public static void set_offset(int neew){
+  //   client.offset = neew;
+  //  }
 
     public static void main(String[] Args){
      
@@ -33,6 +42,7 @@ public class client {
         new Thread(Ears).start();
         
         PrintWriter writer = new PrintWriter(Client.getOutputStream());
+
 //_________________________________________________________________________________________________________________________
 
         Scanner In = new Scanner(System.in);
@@ -42,16 +52,31 @@ public class client {
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
+        while (Own_Name== null){
+          System.out.println("[Client] Not Connected to server , Waiting 10 Seconds..");
+          Thread.sleep(10000);
+        }
         System.out.printf("Welcome %s! Enjoy the Chat service! \n", Own_Name);
         do{
+          try {
+            
           
           Txt = In.nextLine();
-          
-
-          writer.write(Own_Name+" "+ Txt+"\n");
+          if (Txt.startsWith("/ws3")){
+            int Index =  Txt.indexOf("3");
+            client.Own_Name = Txt.substring(Index+2);
+            // set_offset(0);
+          }
+          else if (Txt.startsWith("/sus")){
+            System.out.printf("[Client] Your name is '%s'\n", client.Own_Name);
+          }else {
+          writer.write(Own_Name+"#"+ Txt+"\n");
           writer.flush();
+          }}catch (Exception e) {
+            System.out.println("Fehler meldung ~1");
+          }
           
-        } while (!Txt.equals("Close"));
+        } while (!Txt.equals("/dis"));
 
 //_________________________________________________________________________________________________________________________
 
@@ -59,12 +84,13 @@ public class client {
         Client.close();
         In.close();
         // INside.close();
-        System.out.println("Client Process Closed");
-
+        System.out.println("[Client] Process Closed");
+    } catch (ConnectException e){
+        System.out.println("[Client] No Server Online");
     } catch (UnknownHostException e) {
-        System.out.println("Host is not reachable");
+        System.out.println("[Client] Host is not reachable");
         e.printStackTrace();
-    } catch (IOException e) {
+    } catch (Exception e) {
         System.out.println("[Client] Error At Client");
         e.printStackTrace();
     }

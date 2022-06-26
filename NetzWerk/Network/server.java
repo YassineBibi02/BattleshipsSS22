@@ -11,7 +11,7 @@ public class server {
 
  protected static final String IP = "localhost";
  protected static final int PORT = 1225;    
- private static final int THREAD_COUNT = 5;
+ private static final int THREAD_COUNT = 2;
 
  private static ArrayList<ClientHanlder> Clients = new ArrayList<>();
  private static ExecutorService pool = Executors.newFixedThreadPool(THREAD_COUNT);
@@ -24,7 +24,7 @@ public class server {
      while ( true ){ 
        System.out.println("[Server] Waiting for Connections ..");
        Socket Client = server.accept();
-       System.out.println("[Server] Client Conntected !");
+       System.out.println("[Server] Connection established");
        ClientHanlder ClientThread = new ClientHanlder(Client, Clients);
        Clients.add(ClientThread);
        pool.execute(ClientThread);

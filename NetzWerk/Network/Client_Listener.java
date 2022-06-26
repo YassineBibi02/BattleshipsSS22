@@ -25,15 +25,21 @@ public class Client_Listener implements Runnable{
     try {
         while (true){
         serverCommand = reader.readLine();
+        if (serverCommand == null){throw new IOException();}
+        else {
         if (serverCommand.startsWith("/ws2")){
            int Index =  serverCommand.indexOf("2");
            client.Own_Name = serverCommand.substring(Index+2);
         //    System.out.println("Intiliazed Name");
 
-        } else {
+        } else
+        
         System.out.println(serverCommand);}
         }
-    } catch (IOException e) {
+    }catch ( IOException e ) {
+        System.out.println("[Client] Disconnected");
+
+    } catch (Exception e) {
         System.out.println("[Client_Listener] Couldnt Recieve Server responce");
         e.printStackTrace();
     }finally{

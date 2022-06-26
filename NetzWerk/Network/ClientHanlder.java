@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class ClientHanlder implements Runnable {
 
-    private Socket client;
+    private Socket Client;
     private PrintWriter writer;
     private BufferedReader reader;
     private ArrayList<ClientHanlder> Clients ;
@@ -17,9 +17,9 @@ public class ClientHanlder implements Runnable {
 
 
     public ClientHanlder (Socket clientSocket, ArrayList<ClientHanlder> C) throws IOException {
-        this.client = clientSocket;
-        this.reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        this.writer = new PrintWriter(client.getOutputStream(), true);
+        this.Client = clientSocket;
+        this.reader = new BufferedReader(new InputStreamReader(Client.getInputStream()));
+        this.writer = new PrintWriter(Client.getOutputStream(), true);
         this.Clients = C;
     }
      
@@ -34,10 +34,16 @@ public class ClientHanlder implements Runnable {
          new Name();
          String Naame = Name.Get_Name();
          writer.println("/ws2 "+Naame);
+         EToAll("'"+ Naame +"' Connected");
          while ( ( s = reader.readLine() ) != null ) {
+             System.out.printf("recieved from %s : %s", extract_name(s),extract_text(s) );
+             if ( extract_text(s).startsWith("/dis")){
+                String eName = extract_name(s);
+                EToAll("'"+ eName +"' Disconnected");
+                break;}
              ToAll(s);
-             System.out.println("recieved from client :" + s );
-             if ( s.equals("Close")){break;}
+             
+             
      
          }   
 //_________________________________________________________________________________________________________________________
@@ -59,20 +65,40 @@ public class ClientHanlder implements Runnable {
     }
     
 
+    private String extract_name(String msg){
+        String ClientName = "";
+        int firstspace = msg.indexOf("#");
+         if ( firstspace != -1){
+            ClientName = msg.substring(0, firstspace + client.get_offset());
+        }
+        return ClientName;
+    }
+
+    private String extract_text(String msg){
+        String Message= "";
+        int firstspace = msg.indexOf("#");
+        if ( firstspace != -1){
+         Message = msg.substring(firstspace+client.get_offset()+1);
+        }
+        return Message;
+    }
+
+
 
     private void ToAll(String msg){
-        String ClientName = "";
-        int firstspace = msg.indexOf(" ");
-         if ( firstspace != -1){
-            ClientName = msg.substring(0, firstspace+2);
-            msg = msg.substring(firstspace+3);}
 
        for ( ClientHanlder aClient : Clients ){
          if (aClient== this) {} else {
          
 
-         aClient.writer.println("["+ ClientName+"]: "+msg);}
+         aClient.writer.println("["+ extract_name(msg)+"]: "+extract_text(msg));}
        }
          
+    }
+
+    private void EToAll(String msg){
+        for ( ClientHanlder aClient : Clients ){
+            if (aClient== this) {} else {
+            aClient.writer.println("[Server] "+ msg);}}
     }
 }
