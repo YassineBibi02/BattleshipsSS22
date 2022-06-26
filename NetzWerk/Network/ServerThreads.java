@@ -11,7 +11,7 @@ public class ServerThreads {
 
     @Override
     public void run() {
-        for ( int i = 0 ; i < 55 ; i++){
+        for ( int i = 0 ; i < 10 ; i++){
             System.out.printf("Zahlen : %d\n",i);
         }
         
@@ -22,7 +22,9 @@ public class ServerThreads {
   public static void main(String[] arStrings) {
 
    Thread T1=   new Thread(new Zählen());
+   Thread T2=   new Thread(new Zählen());
    T1.start();
+   T2.start();
 
   }
 

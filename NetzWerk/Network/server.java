@@ -1,52 +1,40 @@
 package Network;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class server {
 
-public static void main(String[] aStrings){
 
-    try{
-     ServerSocket server = new ServerSocket(1225);
-     System.out.println("Server Started");
+ protected static final int PORT = 1225;    
+ private static ArrayList<ClientHanlder> Clients = new ArrayList<>();
+ private static ExecutorService pool = Executors.newFixedThreadPool(2);
+ 
+ public static void main(String[] aStrings){
+    ServerSocket server;
 
-     Socket Client = server.accept();
-
-     OutputStream out = Client.getOutputStream();
-     PrintWriter writer = new PrintWriter(out);
-
-     InputStream in = Client.getInputStream();
-     BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-     String s = null ;
-
-     while ( ( s = reader.readLine() ) != null ) {
-         writer.write("client:" + s + "\n");
-         writer.flush();
-         System.out.println("recieved from client :" + s );
-         if ( s.equals("Close")){break;}
-
+    try{ 
+      server = new ServerSocket(PORT);
+     while ( true ){ 
+       System.out.println("[Server] Started , waiting for Connections ..");
+       Socket Client = server.accept();
+       System.out.println("[Server] Client Conntected !");
+       ClientHanlder ClientThread = new ClientHanlder(Client);
+       Clients.add(ClientThread);
+       pool.execute(ClientThread);
+      
      }
-
-     writer.close();
-     reader.close();
-     server.close();
-
-
-
-
-     System.out.println("Server Closed");
+    
+      
     }catch(IOException e) {
+     System.out.print("[Server] Error at Server Side");
      e.printStackTrace();
 
-    }
-}
     
-}
+   }
+    
+ }}
