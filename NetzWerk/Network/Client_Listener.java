@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import javax.management.loading.PrivateClassLoader;
+
 public class Client_Listener implements Runnable{
 
     private Socket server;
@@ -19,11 +21,14 @@ public class Client_Listener implements Runnable{
     }
 
 
+
+
     @Override
     public void run() {
        String serverCommand;
     try {
         while (true){
+       
         serverCommand = reader.readLine();
         if (serverCommand == null){throw new IOException();}
         else {
@@ -32,7 +37,9 @@ public class Client_Listener implements Runnable{
            client.Own_Name = serverCommand.substring(Index+2);
         //    System.out.println("Intiliazed Name");
 
-        } else
+        } else  if ( client.gestopped ){
+            synchronized(this){
+            wait(500);}} else
         
         System.out.println(serverCommand);}
         }

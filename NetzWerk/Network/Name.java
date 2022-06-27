@@ -9,7 +9,7 @@ public class Name {
     public Name(){
         Own_Name= Name + NameV;
         NameV ++ ;
-        System.out.printf("[Server] %s is online!", Own_Name);
+        System.out.printf("[Server] [%s] Connected!", Own_Name);
     }
 
     static public String Get_Name(){

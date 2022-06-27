@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class client {
    static public String Own_Name ;
    static public int offset = 0 ; 
- 
+   protected static boolean gestopped = false;
    public static int get_offset(){
     // System.out.printf("Code #%d\n", offset);
     return offset;
@@ -39,7 +39,8 @@ public class client {
         Client_Listener Ears = new Client_Listener(Client);
         // System.out.println("Client Started");
 
-        new Thread(Ears).start();
+        Thread earsThread = new Thread(Ears);
+        earsThread.start();
         
         PrintWriter writer = new PrintWriter(Client.getOutputStream());
 
@@ -52,10 +53,14 @@ public class client {
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
+      
         while (Own_Name== null){
-          System.out.println("[Client] Not Connected to server , Waiting 10 Seconds..");
-          Thread.sleep(10000);
+         if ( !gestopped ){
+          System.out.println("[Client] Server Full , Waiting..");
+          gestopped = true;}
+          Thread.sleep(1000);
         }
+        if ( gestopped ){gestopped = false;}
         System.out.printf("Welcome %s! Enjoy the Chat service! \n", Own_Name);
         do{
           try {
