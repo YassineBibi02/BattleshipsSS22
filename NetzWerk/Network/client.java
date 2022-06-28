@@ -52,7 +52,6 @@ public class client {
         do{
           try {
             
-          
           Txt = In.nextLine();
           if (Txt.startsWith("/ws3")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
             int Index =  Txt.indexOf("3");

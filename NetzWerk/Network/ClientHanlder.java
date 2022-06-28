@@ -125,8 +125,8 @@ public class ClientHanlder implements Runnable {
     private String Get_ALLnames(){
         String txt ="| ";
         for ( ClientHanlder aClient : Clients ){
-            
-            txt += aClient.get_Name() + " | ";}
+            if (!(aClient.get_Name() == null)){
+            txt += aClient.get_Name() + " | ";}}
         return txt;
     }
 
