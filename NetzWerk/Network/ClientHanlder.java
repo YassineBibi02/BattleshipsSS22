@@ -8,7 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientHanlder implements Runnable {
-
+    private String Naame;
     private Socket Client;
     private PrintWriter writer;
     private BufferedReader reader;
@@ -32,18 +32,25 @@ public class ClientHanlder implements Runnable {
 //_________________________________________________ essentially server functionality _____________________________________
          String s = null ;
          new Name();
-         String Naame = Name.Get_Name();
-         writer.println("/ws2 "+Naame);
-         EToAll("'"+ Naame +"' Connected");
+         Naame = Name.Get_Name();      // Assign a Name to The Client in an Increasing fashion
+         writer.println("/ws2 "+Naame);       // Pushes the Name Command to the Client
+         EToAll("'"+ Naame +"' Connected");   // Custom Message send to Other Connected Users
          while ( ( s = reader.readLine() ) != null ) {
-             System.out.printf("recieved from %s : %s", extract_name(s),extract_text(s) );
-             if ( extract_text(s).startsWith("/dis")){
-                String eName = extract_name(s);
-                EToAll("'"+ eName +"' Disconnected");
-                break;}
-             ToAll(s);
-             
-             
+             if ( extract_text(s).startsWith("/dis")){ // if the Client wishes to disconnect Breaks the Listening Loop , thus ending the Connection and ending the thread
+                EToAll("'"+ extract_name(s) +"' Disconnected"); // broadcasts that the client is disconnected 
+                break;} else
+             if ( extract_text(s).startsWith("/ale")){  
+                System.out.printf("[Server] [%s] : Changed Name to [%s]\n",extract_Oldname(s) ,extract_name(s) ); // Feedback to Server System
+                EToAll("'"+extract_Oldname(s)+"' Changed Name to ["+extract_name(s)+"]");
+                Naame = extract_name(s);
+             }  else
+             if ( extract_text(s).startsWith("/list")){  
+                writer.println("[Server] Connected Users : "+ Get_ALLnames());
+               
+             } else {
+             System.out.printf("[Server] recieved from [%s] : %s\n", extract_name(s),extract_text(s) ); // Feedback to Server System
+             ToAll(s); // Sends the Message ( incase it doesnt have any commands ) to the connected clients
+             }
      
          }   
 //_________________________________________________________________________________________________________________________
@@ -65,6 +72,9 @@ public class ClientHanlder implements Runnable {
     }
     
 
+    
+    // a function to decode the coded message sent by clients
+    // it extracts the Client's Name
     private String extract_name(String msg){
         String ClientName = "";
         int firstspace = msg.indexOf("#");
@@ -74,6 +84,8 @@ public class ClientHanlder implements Runnable {
         return ClientName;
     }
 
+    // a function to decode the coded message sent by clients
+    // it extracts the Client's Message
     private String extract_text(String msg){
         String Message= "";
         int firstspace = msg.indexOf("#");
@@ -84,7 +96,17 @@ public class ClientHanlder implements Runnable {
     }
 
 
+    private String extract_Oldname(String msg){
+        String Message = extract_text(msg);
+        int firstspace = msg.indexOf("$");
+        if ( firstspace != -1){
+            Message = msg.substring(firstspace+1);
+           }
+        return Message;
+    }
 
+
+    // The Function that sends the Text to all other Connected Users
     private void ToAll(String msg){
 
        for ( ClientHanlder aClient : Clients ){
@@ -95,10 +117,25 @@ public class ClientHanlder implements Runnable {
        }
          
     }
+    
+    private String get_Name(){
+        return this.Naame;
+    }
 
+    private String Get_ALLnames(){
+        String txt ="| ";
+        for ( ClientHanlder aClient : Clients ){
+            
+            txt += aClient.get_Name() + " | ";}
+        return txt;
+    }
+
+    // A Function That is used by the Server to Send Custom Messages
     private void EToAll(String msg){
         for ( ClientHanlder aClient : Clients ){
             if (aClient== this) {} else {
             aClient.writer.println("[Server] "+ msg);}}
     }
+
+
 }

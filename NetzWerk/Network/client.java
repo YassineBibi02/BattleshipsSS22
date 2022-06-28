@@ -14,81 +14,74 @@ public class client {
    static public int offset = 0 ; 
    protected static boolean gestopped = false;
    public static int get_offset(){
-    // System.out.printf("Code #%d\n", offset);
     return offset;
    }
 
-  //  public static void set_offset(int neew){
-  //   client.offset = neew;
-  //  }
+
 
     public static void main(String[] Args){
-     
-    //  Scanner INside = new Scanner(System.in);
-    //  String Own_Name;
-    //  do {
-    //   System.out.println("Enter your Name (no Spaces): ");
-
-    //   Own_Name =  INside.nextLine();
-    //  } while (Own_Name.contains(" "));
-    //  System.out.printf("Welcome %s! Enjoy the Chat service! \n", Own_Name);
 
         
       try {
-        Socket Client = new Socket(server.IP, server.PORT);
-        Client_Listener Ears = new Client_Listener(Client);
-        // System.out.println("Client Started");
+        Socket Client = new Socket(server.IP, server.PORT); //Establiches connection to server
+        Client_Listener Ears = new Client_Listener(Client); 
 
-        Thread earsThread = new Thread(Ears);
-        earsThread.start();
+        Thread earsThread = new Thread(Ears); 
+        earsThread.start(); // starts The Listener Thread
         
-        PrintWriter writer = new PrintWriter(Client.getOutputStream());
+        PrintWriter writer = new PrintWriter(Client.getOutputStream()); // Defines the Writer / pusher
 
 //_________________________________________________________________________________________________________________________
 
-        Scanner In = new Scanner(System.in);
+        Scanner In = new Scanner(System.in); // Scanner for user input
         String Txt = null;
         try {
-          Thread.sleep(20);
+          Thread.sleep(20);            // This tiny wait gives chances for the Listener Thread to actually recieve and Give a proper name to client. Not mendatory but recommanded
         } catch (InterruptedException e) {
           e.printStackTrace();
         }
       
-        while (Own_Name== null){
+        while (Own_Name== null){      // If the Client still hasn't got the initlization Command from the Server then it should wait
          if ( !gestopped ){
-          System.out.println("[Client] Server Full , Waiting..");
+          System.out.println("[Client] Server Full , Waiting..");  // essentially decalring once that server is Full but waiting in a loop
           gestopped = true;}
-          Thread.sleep(1000);
+          Thread.sleep(1000); // wait 1 second to see if server is empty
         }
-        if ( gestopped ){gestopped = false;}
-        System.out.printf("Welcome %s! Enjoy the Chat service! \n", Own_Name);
+        if ( gestopped ){gestopped = false;} // Very neccesary , this is what let's the Client listener operate Normally
+        System.out.printf("[Client] Welcome %s! Enjoy the Chat service! \n", Own_Name); // welcome message
         do{
           try {
             
           
           Txt = In.nextLine();
-          if (Txt.startsWith("/ws3")){
+          if (Txt.startsWith("/ws3")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
             int Index =  Txt.indexOf("3");
+            String OldName = client.Own_Name;
             client.Own_Name = Txt.substring(Index+2);
-            // set_offset(0);
+            writer.write(Own_Name+"#"+"/ale$"+OldName+"\n");  // notifies server
+            writer.flush();
           }
-          else if (Txt.startsWith("/sus")){
+          else if (Txt.startsWith("/sus")){      // /sus , Command to Check your Name , Handeled Locally
             System.out.printf("[Client] Your name is '%s'\n", client.Own_Name);
-          }else {
-          writer.write(Own_Name+"#"+ Txt+"\n");
+          }
+          else if (Txt.startsWith("/list")){      // /sus , Command to Check your Name , Handeled Locally
+            writer.write(Own_Name+"#"+"/list\n");  // notifies server
+            writer.flush();
+          }
+          else {
+          writer.write(Own_Name+"#"+ Txt+"\n"); // if there's no Local Commands then Send a Coded Message to Server for Server Side Handling
           writer.flush();
           }}catch (Exception e) {
             System.out.println("Fehler meldung ~1");
           }
           
-        } while (!Txt.equals("/dis"));
+        } while (!Txt.equals("/dis")); // /dis is handeled both locally and Server side. essentially terminating the Two threads responsable for the connection
 
 //_________________________________________________________________________________________________________________________
 
         writer.close();
         Client.close();
         In.close();
-        // INside.close();
         System.out.println("[Client] Process Closed");
     } catch (ConnectException e){
         System.out.println("[Client] No Server Online");

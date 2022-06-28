@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import javax.management.loading.PrivateClassLoader;
 
 public class Client_Listener implements Runnable{
 
@@ -30,16 +29,18 @@ public class Client_Listener implements Runnable{
         while (true){
        
         serverCommand = reader.readLine();
-        if (serverCommand == null){throw new IOException();}
+        if (serverCommand == null){throw new IOException();}    // No Server Connection
         else {
-        if (serverCommand.startsWith("/ws2")){
+        if (serverCommand.startsWith("/ws2")){           // The Command given by the server at the start of the Connection , so to assign it a proper name
            int Index =  serverCommand.indexOf("2");
            client.Own_Name = serverCommand.substring(Index+2);
         //    System.out.println("Intiliazed Name");
 
-        } else  if ( client.gestopped ){
+        } else  if ( client.gestopped ){                // This must be after the /ws2 Command or it will be stuck in an infitnite loop : Essentially stops the Client from listening to server until it's properly assigned a thread.
             synchronized(this){
-            wait(500);}} else
+            wait(500); // The Listener waits for half a second to see if it connected or not
+            }
+        } else
         
         System.out.println(serverCommand);}
         }

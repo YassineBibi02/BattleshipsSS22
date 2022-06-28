@@ -9,9 +9,9 @@ import java.util.concurrent.Executors;
 
 public class server {
 
- protected static final String IP = "localhost";
+ protected static final String IP = "localhost"; 
  protected static final int PORT = 1225;    
- private static final int THREAD_COUNT = 2;
+ private static final int THREAD_COUNT = 2; // the maximum number of  simultaneously Connected Clients
 
  private static ArrayList<ClientHanlder> Clients = new ArrayList<>();
  private static ExecutorService pool = Executors.newFixedThreadPool(THREAD_COUNT);
@@ -21,13 +21,13 @@ public class server {
 
     try{ 
       server = new ServerSocket(PORT);
-     while ( true ){ 
+     while ( true ){       // a Loop to keep listening for new connections 
        System.out.println("[Server] Waiting for Connections ..");
-       Socket Client = server.accept();
+       Socket Client = server.accept(); // connects client
        System.out.println("[Server] Connection established");
-       ClientHanlder ClientThread = new ClientHanlder(Client, Clients);
-       Clients.add(ClientThread);
-       pool.execute(ClientThread);
+       ClientHanlder ClientThread = new ClientHanlder(Client, Clients); // New Class( aka thread but not really)
+       Clients.add(ClientThread); 
+       pool.execute(ClientThread); // Officially starts the Client
       
      }
     
