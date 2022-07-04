@@ -265,21 +265,27 @@ private int biggness = 5;
     @FXML
     private TextField tf_message;
     @FXML
-    private TextArea Chat;
+    public  TextArea Chat;
 
     String Message = "";
     //This method is used to send the information from the textfield to the read only chat text area,pretty simple implementation requested by the network for further development
     public void Send(ActionEvent e){
         Message = tf_message.getText();
-        System.out.println(Message);
-        String CurrentChatMessage = PreviousMessage + "\n"+"Player: "+Message;
+        // System.out.println(Message);
+        
+        Client_Thread.writer.println("Player2#/txtb$"+Message);
+        Client_Thread.writer.flush();
+        
+
+
+        String CurrentChatMessage = PreviousMessage + "\n"+"Player2: "+Message;
         PreviousMessage = CurrentChatMessage;
         tf_message.setText("");
         Chat.setText(CurrentChatMessage);
 
 
     }
-     public void Send(String e){
+    public void Send(String e){
         Message = e;
         System.out.println(Message); // debug ?
         PreviousMessage += "\n"+"Player2: "+Message;

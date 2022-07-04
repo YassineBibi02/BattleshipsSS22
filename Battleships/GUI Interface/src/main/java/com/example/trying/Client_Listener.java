@@ -37,11 +37,15 @@ public class Client_Listener implements Runnable{
            client.Own_Name = serverCommand.substring(Index+2);
         //    System.out.println("Intiliazed Name");
 
-        } else  if ( client.gestopped ){                // This must be after the /ws2 Command or it will be stuck in an infitnite loop : Essentially stops the Client from listening to server until it's properly assigned a thread.
-            synchronized(this){
-            wait(500); // The Listener waits for half a second to see if it connected or not
-            }
-        } else
+        
+        } else  if (serverCommand.startsWith("/txtb")){           // The Command given by the server at the start of the Connection , so to assign it a proper name
+            int Index =  serverCommand.indexOf("b");
+            IpController.playControl.Message = serverCommand.substring(Index+2);
+            //    System.out.println(Message); // debug ?
+            IpController.playControl.PreviousMessage += "\n"+"Player1: "+IpController.playControl.Message;
+            IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+ 
+         } else
         
         System.out.println(serverCommand);}
         }

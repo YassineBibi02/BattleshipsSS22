@@ -26,10 +26,17 @@ public class HelloController {
     public ImageView Logo;
     private Stage stage;
     private Scene scene;
+    public IpController ipControl;
 
     private Parent root;
     public void switchtoIp(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Ip.fxml"));
+        
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Ip.fxml"));
+        root = loader.load();
+
+        ipControl = loader.getController();
+
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

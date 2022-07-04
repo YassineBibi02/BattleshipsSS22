@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trying.IpController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trying.IpController">
    <children>
       <Label layoutX="125.0" layoutY="58.0" text="Please enter the Ip and Port" textAlignment="CENTER">
          <font>
@@ -27,6 +27,6 @@
       </Label>
       <TextField layoutX="177.0" layoutY="152.0" prefHeight="25.0" prefWidth="243.0" />
       <TextField layoutX="177.0" layoutY="218.0" prefHeight="25.0" prefWidth="243.0" />
-      <Button layoutX="241.0" layoutY="319.0" mnemonicParsing="false" onAction="#switchtoPlaying" prefHeight="55.0" prefWidth="116.0" text="Host" />
+      <Button layoutX="241.0" layoutY="319.0" mnemonicParsing="false" onAction="#switchtoHosting" prefHeight="55.0" prefWidth="116.0" text="Host" />
    </children>
 </AnchorPane>

@@ -11,12 +11,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientHanlder implements Runnable {
-    private String Naame;
-    private Socket Client;
-    private PrintWriter writer;
-    private BufferedReader reader;
-    private ArrayList<ClientHanlder> Clients ;
-    private boolean Connected;
+    public String Naame;
+    public Socket Client;
+    public PrintWriter writer;
+    public BufferedReader reader;
+    public ArrayList<ClientHanlder> Clients ;
+    public boolean Connected;
 
 
     public ClientHanlder (Socket clientSocket, ArrayList<ClientHanlder> C) throws IOException {
@@ -58,7 +58,19 @@ public class ClientHanlder implements Runnable {
                System.out.println(s);
                System.out.printf("[Debug] [%s] Message: %s\n" ,extract_name(s),extract_Oldname(s) );
 
-            //    PlayingController.Send(extract_Oldname(s));
+
+
+
+
+               IpController.playControl2.Message = extract_Oldname(s);
+            //    System.out.println(Message); // debug ?
+            IpController.playControl2.PreviousMessage += "\n"+"Player2: "+IpController.playControl2.Message;
+            IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+
+
+
+
+
                // PRINT OUT TO CONSOLE ??
              } else {
              System.out.printf("[Server] [%s] : %s\n", extract_name(s),extract_text(s) ); // Feedback to Server System
