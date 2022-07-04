@@ -1,4 +1,5 @@
-package Battleships.Network;
+package com.example.trying;
+
 
 // Essentially just a Glorified Incementing naming method , Lol
 public class Name {

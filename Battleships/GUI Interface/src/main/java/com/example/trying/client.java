@@ -1,4 +1,6 @@
-package Battleships.Network;
+package com.example.trying;
+
+
 
 
 import java.io.PrintWriter;
@@ -69,7 +71,7 @@ public class client {
             int Index =  Txt.indexOf("b");
             
             String New = Txt.substring(Index+2);
-            writer.write(New +"\n");  // notifies server
+            writer.write(Own_Name+"#"+"/txtb$"+New +"\n");  // notifies server
             writer.flush();}
           else {
           writer.write(Own_Name+"#"+ Txt+"\n"); // if there's no Local Commands then Send a Coded Message to Server for Server Side Handling

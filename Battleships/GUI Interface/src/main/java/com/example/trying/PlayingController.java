@@ -279,4 +279,12 @@ private int biggness = 5;
 
 
     }
+     public void Send(String e){
+        Message = e;
+        System.out.println(Message); // debug ?
+        PreviousMessage += "\n"+"Player2: "+Message;
+        Chat.setText(PreviousMessage);
+
+
+    }
 }

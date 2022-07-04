@@ -1,4 +1,4 @@
-package Battleships.Network;
+package com.example.trying;
 
 import java.io.IOException;
 import java.net.ServerSocket;

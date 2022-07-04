@@ -1,4 +1,7 @@
-package Battleships.Network;
+package com.example.trying;
+
+
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,9 +53,17 @@ public class ClientHanlder implements Runnable {
              if ( extract_text(s).startsWith("/list")){  
                 writer.println("[Server] Connected Users : "+ Get_ALLnames());
                
+            }  else
+            if ( extract_text(s).startsWith("/txtb")){  
+               System.out.println(s);
+               System.out.printf("[Debug] [%s] Message: %s\n" ,extract_name(s),extract_Oldname(s) );
+
+            //    PlayingController.Send(extract_Oldname(s));
+               // PRINT OUT TO CONSOLE ??
              } else {
              System.out.printf("[Server] [%s] : %s\n", extract_name(s),extract_text(s) ); // Feedback to Server System
              ToAll(s); // Sends the Message ( incase it doesnt have any commands ) to the connected clients
+             System.out.println(s); // DEBUG
              }
      
          }   
