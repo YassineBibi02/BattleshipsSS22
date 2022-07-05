@@ -14,6 +14,9 @@ public class ClientInput {
     public static boolean Client_wait = true;
     public static Integer ClientRow = null ;
     public static Integer ClientCol = null ;
+    public static boolean Self_wait = true;
+    public static Integer SelfRow = null ;
+    public static Integer SelfCol = null ;
     int choice;
     List<Integer> CoordinatesAndShiptype =new ArrayList<>();
 
@@ -42,23 +45,37 @@ public class ClientInput {
 
     private List<Integer> AskCoordForShipAndTyp(){           /// implementation de serveur
         this.CoordinatesAndShiptype=new ArrayList<>();
-        System.out.println("select row : ");
-        int row=scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Select col :");
-        int col=scanner.nextInt();
-        scanner.nextLine();                             //  Dass Input muss was anders Sein 
-        CoordinatesAndShiptype.add(row);
-        CoordinatesAndShiptype.add(col);
-        CoordinatesAndShiptype.add(ShipNum1);
-        ShipNum1++; /// Max 5 wergen die Loop // Muss nach 1 wieder gestzt werden wenn enemy nutzt es
+        while ( Self_wait ){
+          try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+            System.out.println("Code 19");
+            e.printStackTrace();
+        }
+        }
+        Self_wait = true;
 
+        //  Dass Input muss was anders Sein 
+        if ( (SelfRow != null )&& (SelfCol != null)){
+        System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
+
+        CoordinatesAndShiptype.add(SelfRow);
+        CoordinatesAndShiptype.add(SelfCol);
+        CoordinatesAndShiptype.add(ShipNum1);
+        ShipNum1++;
+        }
+         /// Max 5 wergen die Loop // Muss nach 1 wieder gestzt werden wenn enemy nutzt es
         // Sends Coordinates to Server
-        String Message = String.valueOf(row)+ String.valueOf(col);
+        String Message = String.valueOf(SelfRow)+ String.valueOf(SelfCol);
+
+
+        
+       
 
         Client_Thread.writer.println("Player2#/spl$"+Message);
         Client_Thread.writer.flush();
-        
+        SelfCol = null ;
+        SelfRow = null ;
         return CoordinatesAndShiptype;
     }
     private List<Integer> ClientAskCoordForShipAndTyp(){           /// Client Version with Read  // Needs coding
@@ -171,7 +188,12 @@ public class ClientInput {
 
  
 
-       
+    static public void setClientOwnCoordinates ( Integer Row , Integer Col){
+        SelfCol = Col;
+        SelfRow = Row;
+        Self_wait = false;
+    
+       }
     
 
 

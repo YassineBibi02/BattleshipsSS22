@@ -44,12 +44,20 @@ public class Client_Listener implements Runnable{
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
             System.out.println("Debug :"+serverCommand);
  
+        }else  if (serverCommand.startsWith("/txtc")){           // The Command given by the server at the start of the Connection , so to assign it a proper name
+            int Index =  serverCommand.indexOf("c");
+            IpController.playControl.PreviousMessage += "\n"+serverCommand.substring(Index+2);
+            IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+            System.out.println("Debug :"+serverCommand);
+ 
          } else if (serverCommand.startsWith("/spl")){
             // input like "/spl 11"
             int Index =  serverCommand.indexOf("l");
             Integer Two = Integer.valueOf(serverCommand.substring(Index+2)) ;
             ClientInput.SetClientCoordinates(Two / 10,Two % 10);
             System.out.println("Passed "+serverCommand); // DEBUG
+            IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+
  
          } else
         

@@ -11,6 +11,10 @@ public class Input {
     public static boolean Server_wait = true;
     public static Integer ServerRow = null ;
     public static Integer ServerCol = null ;
+    public static boolean Self_wait = true;
+    public static Integer SelfRow = null ;
+    public static Integer SelfCol = null ;
+
     int choice;
     List<Integer> CoordinatesAndShiptype =new ArrayList<>();
 
@@ -39,17 +43,28 @@ public class Input {
 
     private List<Integer> AskCoordForShipAndTyp(){           /// implementation de serveur
         this.CoordinatesAndShiptype=new ArrayList<>();
-        System.out.println("select row : ");
-        int row=scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Select col :");
-        int col=scanner.nextInt();
-        scanner.nextLine();                             //  Dass Input muss was anders Sein 
-        CoordinatesAndShiptype.add(row);
-        CoordinatesAndShiptype.add(col);
+        while ( Self_wait ){
+          try {
+            Thread.sleep(20);
+        } catch (InterruptedException e) {
+            System.out.println("Code 19");
+            e.printStackTrace();
+        }
+        }
+        Self_wait = true;
+
+        //  Dass Input muss was anders Sein 
+        if ( (SelfRow != null )&& (SelfCol != null)){
+        System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
+        CoordinatesAndShiptype.add(SelfRow);
+        CoordinatesAndShiptype.add(SelfCol);
         CoordinatesAndShiptype.add(ShipNum1);
-        ShipNum1++; /// Max 5 wergen die Loop // Muss nach 1 wieder gestzt werden wenn enemy nutzt es
-        String Message = String.valueOf(row)+ String.valueOf(col);
+        ShipNum1++;
+        }
+         /// Max 5 wergen die Loop // Muss nach 1 wieder gestzt werden wenn enemy nutzt es
+
+        String Message = String.valueOf(SelfRow)+ String.valueOf(SelfCol);
+
 
         
         // Sends coordinates to Client
@@ -58,7 +73,8 @@ public class Input {
             aClient.writer.flush();
         }
 
-
+        SelfCol = null ;
+        SelfRow = null ;
         return CoordinatesAndShiptype;
     }
     private List<Integer> ServerAskCoordForShipAndTyp(){           /// Server Version with Read  // Needs coding
@@ -175,6 +191,12 @@ public class Input {
        
     
 
+   static public void setServerOwnCoordinates ( Integer Row , Integer Col){
+    SelfCol = Col;
+    SelfRow = Row;
+    Self_wait = false;
+
+   }
 
    static public void SetServerCoordinates(Integer Row , Integer Col){
      ServerRow = Row;

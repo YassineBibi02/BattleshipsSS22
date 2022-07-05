@@ -1,5 +1,6 @@
 package com.example.trying.Spiellogik;
 
+import com.example.trying.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class Game {
           //-------------------------------------------------- für Client Version müsste das einfach verwechselt werden ! ---------------
           //lehni chtestamlha fazet il plus 1
           // il thnin hia adad il Ship eli chenhothom
+          
+
+
           for (int i=0;i<5;i++){
                Ship one =board1.createShip(0);
                while (one.IsplacementOk(one,shipPlayer1,boardPlayer1)==false){
@@ -23,6 +27,10 @@ public class Game {
                }
                shipPlayer1.add(one);
           }
+          for ( ClientHanlder aClient : ServerThread.Clients ){
+               aClient.writer.println("/txtc "+"You can now Place your Ships");
+               aClient.writer.flush();
+           }
           Input.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){                // Adversaire filling server side
                Ship one =board1.ServercreateShip(1);
