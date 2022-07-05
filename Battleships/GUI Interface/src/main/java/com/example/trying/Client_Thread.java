@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Client_Thread implements Runnable{
     static public String Own_Name ;
    static public int offset = 0 ; 
-
+   static public boolean Stop = false;
    static public PrintWriter writer;
    protected static boolean gestopped = false;
    public static int get_offset(){
@@ -39,54 +39,49 @@ public class Client_Thread implements Runnable{
             }
             System.out.println("[Client] Connected");
             gestopped = false;
-            // while (Own_Name== null){      // If the Client still hasn't got the initlization Command from the Server then it should wait
-            //  if ( !gestopped ){
-            //   System.out.println("[Client] Server Full , Waiting..");  // essentially decalring once that server is Full but waiting in a loop
-            //   gestopped = true;}
-            //   Thread.sleep(1000); // wait 1 second to see if server is empty
-            // }
-            // if ( gestopped ){gestopped = false;} // Very neccesary , this is what let's the Client listener operate Normally
-            // System.out.printf("[Client] Welcome %s! Enjoy the Chat service! \n", Own_Name); // welcome message
-            do{
-              try {
+//----------------------------------------------------Paused for Server( No Client Connection )----------------------------------------------------
+//             do{
+//               try {
                 
-              Txt = In.nextLine();
-              if (Txt.startsWith("/ws3")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
-                int Index =  Txt.indexOf("3");
-                String OldName = client.Own_Name;
-                client.Own_Name = Txt.substring(Index+2);
-                writer.write(Own_Name+"#"+"/ale$"+OldName+"\n");  // notifies server
-                writer.flush();
-              }
-              else if (Txt.startsWith("/sus")){      // /sus , Command to Check your Name , Handeled Locally
-                System.out.printf("[Client] Your name is '%s'\n", client.Own_Name);
-              }
-              else if (Txt.startsWith("/list")){      // /sus , Command to Check your Name , Handeled Locally
-                writer.write(Own_Name+"#"+"/list\n");  // notifies server
-                writer.flush();
-              } else if (Txt.startsWith("/txtb")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
-                int Index =  Txt.indexOf("b");
+//               Txt = In.nextLine();
+//               if (Txt.startsWith("/ws3")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
+//                 int Index =  Txt.indexOf("3");
+//                 String OldName = client.Own_Name;
+//                 client.Own_Name = Txt.substring(Index+2);
+//                 writer.write(Own_Name+"#"+"/ale$"+OldName+"\n");  // notifies server
+//                 writer.flush();
+//               }
+//               else if (Txt.startsWith("/sus")){      // /sus , Command to Check your Name , Handeled Locally
+//                 System.out.printf("[Client] Your name is '%s'\n", client.Own_Name);
+//               }
+//               else if (Txt.startsWith("/list")){      // /sus , Command to Check your Name , Handeled Locally
+//                 writer.write(Own_Name+"#"+"/list\n");  // notifies server
+//                 writer.flush();
+//               } else if (Txt.startsWith("/txtb")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
+//                 int Index =  Txt.indexOf("b");
                 
-                String New = Txt.substring(Index+2);
-                writer.write(Own_Name+"#"+"/txtb$"+New +"\n");  // notifies server
-                writer.flush();}
-              else if (Txt.startsWith("/spl")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
-                int Index =  Txt.indexOf("l");
+//                 String New = Txt.substring(Index+2);
+//                 writer.write(Own_Name+"#"+"/txtb$"+New +"\n");  // notifies server
+//                 writer.flush();}
+//               else if (Txt.startsWith("/spl")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
+//                 int Index =  Txt.indexOf("l");
                 
-                String New = Txt.substring(Index+2);
-                writer.write(Own_Name+"#"+"/spl$"+New +"\n");  // notifies server
-                writer.flush();}
-                else {
-              writer.write(Own_Name+"#"+ Txt+"\n"); // if there's no Local Commands then Send a Coded Message to Server for Server Side Handling
-              writer.flush();
-              }}catch (Exception e) {
-                System.out.println("Fehler meldung ~1");
-              }
+//                 String New = Txt.substring(Index+2);
+//                 writer.write(Own_Name+"#"+"/spl$"+New +"\n");  // notifies server
+//                 writer.flush();}
+//                 else {
+//               writer.write(Own_Name+"#"+ Txt+"\n"); // if there's no Local Commands then Send a Coded Message to Server for Server Side Handling
+//               writer.flush();
+//               }}catch (Exception e) {
+//                 System.out.println("Fehler meldung ~1");
+//               }
               
-            } while (!Txt.equals("/dis")); // /dis is handeled both locally and Server side. essentially terminating the Two threads responsable for the connection
+//             } while (!Txt.equals("/dis")); // /dis is handeled both locally and Server side. essentially terminating the Two threads responsable for the connection
     
-    //_________________________________________________________________________________________________________________________
-    
+//_________________________________________________________________________________________________________________________
+            while ( !Stop ){
+              Thread.sleep(20);
+            }
             writer.close();
             Client.close();
             In.close();

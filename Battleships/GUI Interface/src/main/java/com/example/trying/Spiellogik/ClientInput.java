@@ -1,16 +1,19 @@
 package com.example.trying.Spiellogik;
-import com.example.trying.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Input {
+import com.example.trying.*;
+
+
+public class ClientInput {
     private Scanner scanner=new Scanner(System.in);
     private List<Board> boards=new ArrayList<>();
     public static Integer ShipNum1 = 1;
-    public static boolean Server_wait = true;
-    public static Integer ServerRow = null ;
-    public static Integer ServerCol = null ;
+    public static boolean Client_wait = true;
+    public static Integer ClientRow = null ;
+    public static Integer ClientCol = null ;
     int choice;
     List<Integer> CoordinatesAndShiptype =new ArrayList<>();
 
@@ -27,7 +30,7 @@ public class Input {
         boards.add(board2);
     }
 
-    public Input(){
+    public ClientInput(){
 
     }
 
@@ -49,52 +52,49 @@ public class Input {
         CoordinatesAndShiptype.add(col);
         CoordinatesAndShiptype.add(ShipNum1);
         ShipNum1++; /// Max 5 wergen die Loop // Muss nach 1 wieder gestzt werden wenn enemy nutzt es
+
+        // Sends Coordinates to Server
         String Message = String.valueOf(row)+ String.valueOf(col);
 
+        Client_Thread.writer.println("Player2#/spl$"+Message);
+        Client_Thread.writer.flush();
         
-        // Sends coordinates to Client
-        for ( ClientHanlder aClient : ServerThread.Clients ){
-            aClient.writer.println("/spl "+Message);
-            aClient.writer.flush();
-        }
-
-
         return CoordinatesAndShiptype;
     }
-    private List<Integer> ServerAskCoordForShipAndTyp(){           /// Server Version with Read  // Needs coding
+    private List<Integer> ClientAskCoordForShipAndTyp(){           /// Client Version with Read  // Needs coding
         this.CoordinatesAndShiptype=new ArrayList<>();
-        // MAN BRAUCHT 3 LIST von 2 ints von server
-        // Erstmal warten bis Server etwas geshickt hat 
-        while ( Server_wait ){
+        // MAN BRAUCHT 3 LIST von 2 ints von Client
+        // Erstmal warten bis Client etwas geshickt hat 
+        while ( Client_wait ){
            try {
             Thread.sleep(20);
         } catch (InterruptedException e) {
-            System.out.println("Fehler Code 11");
+            System.out.println("Fehler Code 21");
             e.printStackTrace();
-        } // waits till Server wait is false ( Set by Server )
+        } // waits till Client wait is false ( Set by Client )
         }
 
-        Server_wait = true;
-        if ( (ServerRow != null )&& (ServerCol != null)){
-         System.out.printf("Passed %d as Row and %d as Col\n", ServerRow, ServerCol);
-         CoordinatesAndShiptype.add(ServerRow);
-         CoordinatesAndShiptype.add(ServerCol);
+        Client_wait = true;
+        if ( (ClientRow != null )&& (ClientCol != null)){
+         System.out.printf("Passed %d as Row and %d as Col\n", ClientRow, ClientCol);
+         CoordinatesAndShiptype.add(ClientRow);
+         CoordinatesAndShiptype.add(ClientCol);
          CoordinatesAndShiptype.add(ShipNum1);
         } else { 
-            System.out.println("Code Fehler 12");
+            System.out.println("Fehler Code 22");
         }
-        ServerRow = null;
-        ServerCol = null;       //reset
+        ClientRow = null;
+        ClientCol = null;       //reset
         ShipNum1++; /// Max 5 wergen die Loop // Muss nach 1 wieder gestzt werden wenn enemy nutzt es
         return CoordinatesAndShiptype;
     }
     
-    public Ship ServercreateShip(int player){
+    public Ship ClientcreateShip(int player){
         int GamePlayer= player+1;
         Squere shipPart;
         Ship ship;
         System.out.println("Player"+GamePlayer+" place ship");
-        CoordinatesAndShiptype=ServerAskCoordForShipAndTyp();
+        CoordinatesAndShiptype=ClientAskCoordForShipAndTyp();
         int row=CoordinatesAndShiptype.get(0);
         int col=CoordinatesAndShiptype.get(1);
         int shiptype=CoordinatesAndShiptype.get(2);
@@ -133,40 +133,39 @@ public class Input {
         System.out.println("select col");
         int col=scanner.nextInt();
 
+        //send to Server 
         String Message = String.valueOf(row)+ String.valueOf(col);
 
+        Client_Thread.writer.println("Player2#/spl$"+Message);
+        Client_Thread.writer.flush();
         
-        // Sends coordinates to Client
-        for ( ClientHanlder aClient : ServerThread.Clients ){
-            aClient.writer.println("/spl "+Message);
-            aClient.writer.flush();
-        }
+        
         return new int[]{row,col};
     }
 
-    public int[] Servershoot (int player){
+    public int[] Clientshoot (int player){
         int GamePlayer=player+1;
-        int[] ServerReturn = {0,0};
+        int[] ClientReturn = {0,0};
         System.out.println("Player2"+ GamePlayer+"shoot");
-        while ( Server_wait ){
+        while ( Client_wait ){
             try {
              Thread.sleep(20);
          } catch (InterruptedException e) {
-             System.out.println("Fehler Code 11");
+             System.out.println("Fehler Code 21");
              e.printStackTrace();
-         } // waits till Server wait is false ( Set by Server )
+         } // waits till Client wait is false ( Set by Client )
          }
-         Server_wait = true;
-         if ( (ServerRow != null )&& (ServerCol != null)){
-            System.out.printf("Passed %d as Row and %d as Col\n", ServerRow, ServerCol);
-         ServerReturn[0] = ServerRow;
-         ServerReturn[1]=  ServerCol;
+         Client_wait = true;
+         if ( (ClientRow != null )&& (ClientCol != null)){
+            System.out.printf("Passed %d as Row and %d as Col\n", ClientRow, ClientCol);
+         ClientReturn[0] = ClientRow;
+         ClientReturn[1]=  ClientCol;
          } else {
-            System.out.println("Code Fehler 13");
+            System.out.println("Fehler Code 23");
          }
-         ServerRow = null;
-         ServerCol = null; 
-        return ServerReturn;
+         ClientRow = null;
+         ClientCol = null; 
+        return ClientReturn;
     }
 
 
@@ -176,9 +175,9 @@ public class Input {
     
 
 
-   static public void SetServerCoordinates(Integer Row , Integer Col){
-     ServerRow = Row;
-     ServerCol = Col;
-     Server_wait = false ;
+   static public void SetClientCoordinates(Integer Row , Integer Col){
+     ClientRow = Row;
+     ClientCol = Col;
+     Client_wait = false ;
    }
 }

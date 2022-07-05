@@ -1,12 +1,14 @@
 package com.example.trying.Spiellogik;
 
-public class Battleship {
+
+
+public class ClientBattleship {
     private Display display;
-    private Game game=new Game();
+    private ClientGame game=new ClientGame();
     // private Input input;
 
 
-    public Battleship(){
+    public ClientBattleship(){
         display=new Display();
     }
 
@@ -49,3 +51,4 @@ public class Battleship {
         System.exit(0);
     }
 }
+

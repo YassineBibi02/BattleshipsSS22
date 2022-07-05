@@ -26,6 +26,8 @@ public class IpController {
     public void switchtoPlaying(ActionEvent event) throws IOException {
         Thread T1=   new Thread(new Client_Thread());
         T1.start();
+        Thread T2=  new Thread(new MainThreadClient());
+        T2.start();
        
         
         
