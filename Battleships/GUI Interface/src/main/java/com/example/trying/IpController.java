@@ -1,5 +1,5 @@
 package com.example.trying;
-
+import com.example.trying.Spiellogik.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -26,6 +26,8 @@ public class IpController {
     public void switchtoPlaying(ActionEvent event) throws IOException {
         Thread T1=   new Thread(new Client_Thread());
         T1.start();
+       
+        
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Playing.fxml"));
         Parent root = loader.load();
@@ -42,6 +44,8 @@ public class IpController {
     public void switchtoHosting(ActionEvent event) throws IOException {
         Thread T1=   new Thread(new ServerThread());
         T1.start();
+        Thread T2 = new Thread ( new MainThread());
+        T2.start();
         
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Playing2.fxml"));

@@ -1,7 +1,7 @@
-package model;
+package com.example.trying.Spiellogik;
 
-import javax.print.DocFlavor;
-import javax.swing.plaf.synth.SynthOptionPaneUI;
+
+
 import java.util.List;
 
 public class Player {

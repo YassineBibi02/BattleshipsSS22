@@ -1,6 +1,5 @@
-package model;
+package com.example.trying.Spiellogik;
 
-import java.awt.font.FontRenderContext;
 
 public class Board {
     private int SizeX;

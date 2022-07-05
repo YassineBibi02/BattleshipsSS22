@@ -40,10 +40,9 @@ public class Client_Listener implements Runnable{
         
         } else  if (serverCommand.startsWith("/txtb")){           // The Command given by the server at the start of the Connection , so to assign it a proper name
             int Index =  serverCommand.indexOf("b");
-            IpController.playControl.Message = serverCommand.substring(Index+2);
-            //    System.out.println(Message); // debug ?
-            IpController.playControl.PreviousMessage += "\n"+"Player1: "+IpController.playControl.Message;
+            IpController.playControl.PreviousMessage += "\n"+"Player1: "+serverCommand.substring(Index+2);
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+            System.out.println("Debug :"+serverCommand);
  
          } else
         

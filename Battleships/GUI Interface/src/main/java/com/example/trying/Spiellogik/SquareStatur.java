@@ -1,4 +1,4 @@
-package model;
+package com.example.trying.Spiellogik;
 
 public enum SquareStatur {
     HIT,

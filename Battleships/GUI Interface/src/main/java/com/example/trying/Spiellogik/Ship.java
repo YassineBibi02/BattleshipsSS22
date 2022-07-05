@@ -1,4 +1,5 @@
-package model;
+package com.example.trying.Spiellogik;
+
 import java.util.List;
 
 public class Ship {

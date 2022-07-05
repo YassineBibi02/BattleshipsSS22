@@ -2,7 +2,7 @@ package com.example.trying;
 
 
 
-
+import com.example.trying.Spiellogik.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -57,22 +57,19 @@ public class ClientHanlder implements Runnable {
             if ( extract_text(s).startsWith("/txtb")){  
                System.out.println(s);
                System.out.printf("[Debug] [%s] Message: %s\n" ,extract_name(s),extract_Oldname(s) );
-
-
-
-
-
-               IpController.playControl2.Message = extract_Oldname(s);
-            //    System.out.println(Message); // debug ?
-            IpController.playControl2.PreviousMessage += "\n"+"Player2: "+IpController.playControl2.Message;
-            IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
-
-
-
-
-
+               IpController.playControl2.PreviousMessage += "\nPlayer2: "+extract_Oldname(s);
+               IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
                // PRINT OUT TO CONSOLE ??
-             } else {
+             } else
+             if (extract_text(s).startsWith("/spl")){
+                // input like Client0#/spl$00
+                Integer Two = Integer.valueOf(extract_Oldname(s)) ;
+                Input.SetServerCoordinates(Two / 10,Two % 10);
+                System.out.println("Passed "+s); // DEBUG
+
+             }
+             else 
+             {
              System.out.printf("[Server] [%s] : %s\n", extract_name(s),extract_text(s) ); // Feedback to Server System
              ToAll(s); // Sends the Message ( incase it doesnt have any commands ) to the connected clients
              System.out.println(s); // DEBUG

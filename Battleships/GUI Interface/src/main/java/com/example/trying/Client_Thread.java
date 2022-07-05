@@ -70,7 +70,13 @@ public class Client_Thread implements Runnable{
                 String New = Txt.substring(Index+2);
                 writer.write(Own_Name+"#"+"/txtb$"+New +"\n");  // notifies server
                 writer.flush();}
-              else {
+              else if (Txt.startsWith("/spl")){           // /ws3 is the command to change names , Handeled Locally ( WIP : Sends notification to server)
+                int Index =  Txt.indexOf("l");
+                
+                String New = Txt.substring(Index+2);
+                writer.write(Own_Name+"#"+"/spl$"+New +"\n");  // notifies server
+                writer.flush();}
+                else {
               writer.write(Own_Name+"#"+ Txt+"\n"); // if there's no Local Commands then Send a Coded Message to Server for Server Side Handling
               writer.flush();
               }}catch (Exception e) {

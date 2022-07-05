@@ -1,9 +1,9 @@
-package model;
+package com.example.trying.Spiellogik;
 
 public class Battleship {
     private Display display;
     private Game game=new Game();
-    private Input input;
+    // private Input input;
 
 
     public Battleship(){
@@ -18,13 +18,14 @@ public class Battleship {
     public void MainMenu(){
         int choice;
         boolean exit=false;
-        input=new Input();
+        // input=new Input();
 
         while (!exit){
             display.PrintMainMenuOption();
             System.out.println("Gib dein Auswahl");
             System.out.println();
-            choice=input.GetIntMenuOption();
+            // choice=input.GetIntMenuOption();
+            choice = 0;
             switch (choice){
                 case 0:
                     display.PrintMessage("you choosed to play the Game");

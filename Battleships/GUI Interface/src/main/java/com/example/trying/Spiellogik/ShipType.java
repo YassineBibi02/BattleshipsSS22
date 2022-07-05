@@ -1,13 +1,13 @@
-package model;
+package com.example.trying.Spiellogik;
 
 
 
 public enum ShipType {
-    MOUDAMIR(1),
+    MOUDAMIR(5),
     EMLEK(4),
     KANAS(3),
-    EDIA(3),
-    KABIRA(2),
+    EDIA(2),
+    KABIRA(1),
     GUEZ(4);
 
     private final Integer label;
