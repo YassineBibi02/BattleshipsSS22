@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -44,9 +41,11 @@ public class PlayingController implements Initializable  {
     Ships ship03 = new Ships(3,true);
     Ships ship04 = new Ships(2,true);
     Ships ship05 = new Ships(2,true);*/
-
+    @FXML
+    public Label ClientNotif;
     @FXML
     public ImageView Background;
+    public static boolean HitAllowed = false;
     public ImageView ship1;
     public ImageView ship2;
     public ImageView ship3;
@@ -98,6 +97,9 @@ private Pane pane;
         //making the text are for the chat read only.
       Chat.setEditable(false);
       //Initializing the grids
+
+      ClientNotif.setText("Oppenent's Turn");
+
       grid = new Rectangle[spots][spots];
       gridenemy = new Rectangle[spots][spots];
       //Drawing allied battlefield.
@@ -153,24 +155,32 @@ private Pane pane;
             Ships ship = new Ships(size,x,y,radius,c2,true);
             Ships.add(ship);
             c2.setOnMousePressed(event -> pressed(event,ship));
-            c2.setOnMouseDragged(event -> dragged(event,ship));
+            c2.setOnMouseDragged(event -> draggedForEnemy(event,ship));
             c2.setOnMouseReleased(event -> hit(event,ship));
             pane1.getChildren().add(c2);
             ship.draw();
         }
     }
+    public void draggedForEnemy(MouseEvent event,Ships ship){
+        if(HitAllowed == true){
+            ship.setX(ship.getX()+event.getX());
+            ship.setY(ship.getY()+event.getY());
+            ship.draw();
+        }}
     //When the enemy cursor is dropped, the cell will turn red marking it as HIT.
     public void hit(MouseEvent event,Ships ship){
+        if(HitAllowed == true){
         int gridx =(int)ship.getX() / squareSize;
         int gridy =(int)ship.getY() / squareSize;
 
-        ///////////////////////////////////////////
+        ClientInput.setClientOwnCoordinates(gridy, gridx); 
         
         gridenemy [gridx][gridy].setFill(Color.RED);
         ship.setX(squareSize/2 + squareSize * gridx);
         ship.setY(squareSize/2 + squareSize * gridy);
         ship.draw();
-
+        HitAllowed = false;
+        }
     }
     //Nothing important, trying the press event handler.
     public void pressed(MouseEvent event,Ships ship){
@@ -195,17 +205,18 @@ private int biggness = 5;
     *
     *
     * */
+   
     public void released(MouseEvent event , Ships ship){
 
         int gridx =(int)ship.getX() / squareSize;
         int gridy =(int)ship.getY() / squareSize;
-        if (count < 5 ){
+        if (shipCounter < 5 ){
         ClientInput.setClientOwnCoordinates(gridx, gridy); 
-        count ++;
+        
         }
 
         try {
-        if(Horizontal.isSelected() && shipCounter != 5){
+        if(!Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
             grid [gridx][gridy].setFill(Color.GREEN);
             for(int i=0;i < biggness; i++){
 
@@ -213,10 +224,11 @@ private int biggness = 5;
             }
             this.biggness--;
             shipCounter++;
+            
         }} catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Unable to place ship");
             try{
-            if(Horizontal.isSelected() && shipCounter != 5){
+            if(!Horizontal.isSelected() && shipCounter != 5){
                 grid [gridx][gridy].setFill(Color.LIGHTGRAY);
                 for(int i=0;i < biggness+1; i++){
 
@@ -230,7 +242,7 @@ private int biggness = 5;
 
         }
        try{
-        if (!Horizontal.isSelected() && shipCounter != 5){
+        if (Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
             grid [gridx][gridy].setFill(Color.GREEN);
             for(int i=0;i < biggness; i++){
                 grid[gridx][gridy+ i].setFill(Color.GREEN);
@@ -240,7 +252,7 @@ private int biggness = 5;
         }}catch(ArrayIndexOutOfBoundsException e){
            System.out.println("Unable to place ship");
            try{
-           if(!Horizontal.isSelected() && shipCounter != 5){
+           if(Horizontal.isSelected() && shipCounter != 5){
                grid [gridx][gridy].setFill(Color.LIGHTGRAY);
                for(int i=0;i < biggness+1; i++){
 
@@ -255,6 +267,9 @@ private int biggness = 5;
         ship.setX(squareSize/2 + squareSize * gridx);
         ship.setY(squareSize/2 + squareSize * gridy);
         ship.draw();
+        // if(shipCounter == 5){
+        //     HitAllowed = true;
+        // }
     }
     /*
      * The Chat Variables and the Chat Methods GUI sided. (Namly writing, storing and outputting.).
@@ -271,7 +286,7 @@ private int biggness = 5;
      * */
     @FXML
     private Button button_send;
-    String PreviousMessage = "Player 1 is placing His Ships!";
+    public String PreviousMessage = "Player 1 is placing His Ships!";
     @FXML
     private TextField tf_message;
     @FXML

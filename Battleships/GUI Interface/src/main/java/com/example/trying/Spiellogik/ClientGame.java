@@ -4,6 +4,8 @@ package com.example.trying.Spiellogik;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.trying.*;
+
 
 public class ClientGame {
     private List<Ship> shipPlayer1=new ArrayList<>();
@@ -18,7 +20,7 @@ public class ClientGame {
           //lehni chtestamlha fazet il plus 1
           // il thnin hia adad il Ship eli chenhothom
           
-         
+          
           for (int i=0;i<5;i++){                // Wait for Opponent to fill out site and then play
                Ship one =board1.ClientcreateShip(1);
                while (one.IsplacementOk(one,shipPlayer2,boardPlayer2)==false){
@@ -26,6 +28,7 @@ public class ClientGame {
                }
                shipPlayer2.add(one);
           }
+          // PlayingController.ClientNotif.setText("Your Turn");
           ClientInput.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){
             Ship one =board1.createShip(0);
@@ -35,7 +38,7 @@ public class ClientGame {
             shipPlayer1.add(one);
        }
           Player player1=new Player(shipPlayer1,boardPlayer2);
-          Player player2=new Player(shipPlayer2,boardPlayer1);
+          Player1 player2=new Player1(shipPlayer2,boardPlayer1);
           boolean GameOn=true;
           Display display=new Display();
           System.out.println("-----Player1 Board -------");
@@ -45,6 +48,8 @@ public class ClientGame {
           display.PrintBoard(boardPlayer2);
           int NumberofshipsPlayer1=player1.NumberOfSquareofShips(shipPlayer1);
           int NumberofshipsPlayer2=player2.NumberOfSquareofShips(shipPlayer2);
+          // PlayingController.ClientNotif.setText("Opponent's Turn");
+
           while (GameOn){
                int[] ShootCoordination;
                

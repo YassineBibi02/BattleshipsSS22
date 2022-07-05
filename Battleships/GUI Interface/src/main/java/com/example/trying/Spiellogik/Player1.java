@@ -6,12 +6,12 @@ import java.util.List;
 
 import com.example.trying.IpController;
 
-public class Player {
+public class Player1 {
     private List<Ship> ships;
     private Board boardPlayer;
     private int remainingShips=0;
 
-    public Player(List<Ship> shipss,Board bor){
+    public Player1(List<Ship> shipss,Board bor){
         this.boardPlayer=bor;
         this.ships=shipss;
     }
@@ -35,19 +35,23 @@ public class Player {
                     square.setSquarestat(SquareStatur.HIT);
                     boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.HIT);
                     System.out.println("Du hast Getroffen");
-                    IpController.playControl.PreviousMessage += "\nYou've been hit ";
+                    IpController.playControl.PreviousMessage += "\nSuccessfuly hit ";
                     IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
                     return true;
                 }else if (square.Gety()==y && square.Getx()==x && square.Getsquarestat().equals(SquareStatur.HIT)){
                     square.setSquarestat(SquareStatur.HIT);
                     boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.HIT);
                     System.out.println("Schon Getroffen");
+                    IpController.playControl.PreviousMessage += "\nAllready hit ";
+                    IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
                     return false;
                 }
             }
         }
         boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.MISSED);
         System.out.println("MISSED");
+        IpController.playControl.PreviousMessage += "\nMissed";
+        IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
         return false;
 
     }

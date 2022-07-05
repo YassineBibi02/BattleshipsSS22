@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="Pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trying.PlayingController">
    <children>
@@ -25,7 +26,7 @@
       <Button layoutX="50.0" layoutY="245.0" mnemonicParsing="false" onAction="#switchtoLost" prefHeight="39.0" prefWidth="113.0" text="Surrender" />
       <Label layoutX="93.0" layoutY="309.0" />
       <Label layoutX="12.0" layoutY="309.0" text="Mentally screw with your opponent:" />
-      <TextField fx:id="tf_message" layoutX="9.0" layoutY="449.0" prefHeight="39.0" prefWidth="199.0" />
+      <TextField fx:id="tf_message" layoutX="9.0" layoutY="449.0" prefHeight="39.0" prefWidth="199.0" promptText="Write here" />
       <Button fx:id="button_send" layoutX="215.0" layoutY="456.0" mnemonicParsing="false" onAction="#Send" text="Send" />
       <ImageView fx:id="ship2" fitHeight="141.0" fitWidth="22.0" layoutX="83.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -43,7 +44,7 @@
          </image>
       </ImageView>
       <Line endX="1.0" endY="196.2928924560547" layoutX="264.0" layoutY="9.0" startX="1.0" startY="-9.0" />
-      <Line endX="159.5" layoutX="107.0" layoutY="206.0" startX="-114.0" />
+      <Line endX="157.0" layoutX="107.0" layoutY="206.0" startX="-114.0" />
       <TextArea fx:id="Chat" layoutX="8.0" layoutY="304.0" prefHeight="141.0" prefWidth="255.0" />
       <ImageView fx:id="ship1" fitHeight="176.0" fitWidth="43.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true">
          <image>
@@ -56,7 +57,12 @@
          </image>
       </ImageView>
       <Pane fx:id="pane" layoutX="297.0" layoutY="261.0" prefHeight="218.0" prefWidth="241.0" />
-      <CheckBox fx:id="Horizontal" layoutX="555.0" layoutY="375.0" mnemonicParsing="false" text="Horizontal" />
+      <CheckBox fx:id="Horizontal" layoutX="555.0" layoutY="375.0" mnemonicParsing="false" text="Vertical" />
       <Pane fx:id="pane1" layoutX="297.0" layoutY="12.0" prefHeight="218.0" prefWidth="241.0" />
+      <Label fx:id="ClientNotif" layoutX="392.0" layoutY="232.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

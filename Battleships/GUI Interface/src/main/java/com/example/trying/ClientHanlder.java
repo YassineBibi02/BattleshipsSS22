@@ -68,7 +68,11 @@ public class ClientHanlder implements Runnable {
                 System.out.println("Passed "+s); // DEBUG
 
              }
-             else 
+             else if (extract_text(s).startsWith("/hit")){
+               PlayingController2.HitAllowed = true;
+            //    PlayingController2.ServerNotif.setText("Your Turn");
+
+             }else 
              {
              System.out.printf("[Server] [%s] : %s\n", extract_name(s),extract_text(s) ); // Feedback to Server System
              ToAll(s); // Sends the Message ( incase it doesnt have any commands ) to the connected clients

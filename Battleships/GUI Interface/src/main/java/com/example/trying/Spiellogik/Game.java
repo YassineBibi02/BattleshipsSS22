@@ -31,6 +31,8 @@ public class Game {
                aClient.writer.println("/txtc "+"You can now Place your Ships");
                aClient.writer.flush();
            }
+
+          // PlayingController2.ServerNotif.setText("Opponent's Turn");
           Input.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){                // Adversaire filling server side
                Ship one =board1.ServercreateShip(1);
@@ -40,8 +42,8 @@ public class Game {
                shipPlayer2.add(one);
           }
           //--------------------------------------------------- Bis hier ----------------------------------------------------------
-          Player player1=new Player(shipPlayer1,boardPlayer2);
-          Player player2=new Player(shipPlayer2,boardPlayer1);
+          Player3 player1=new Player3(shipPlayer1,boardPlayer2);
+          Player2 player2=new Player2(shipPlayer2,boardPlayer1);
           boolean GameOn=true;
           Display display=new Display();
           System.out.println("-----Player1 Board -------");
@@ -51,6 +53,8 @@ public class Game {
           display.PrintBoard(boardPlayer2);
           int NumberofshipsPlayer1=player1.NumberOfSquareofShips(shipPlayer1);
           int NumberofshipsPlayer2=player2.NumberOfSquareofShips(shipPlayer2);
+          // PlayingController2.ServerNotif.setText("Your Turn");
+
           while (GameOn){
                int[] ShootCoordination;
                ShootCoordination=board1.shoot(0);

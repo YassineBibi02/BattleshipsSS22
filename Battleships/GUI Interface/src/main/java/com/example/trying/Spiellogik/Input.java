@@ -115,7 +115,7 @@ public class Input {
         int col=CoordinatesAndShiptype.get(1);
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
         boards.get(player).BuiltShip(shipPart,ship);
         System.out.println(ship.GetNewShip());
         return ship;
@@ -134,7 +134,7 @@ public class Input {
         int col=CoordinatesAndShiptype.get(1);
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
         boards.get(player).BuiltShip(shipPart,ship);
         System.out.println(ship.GetNewShip());
         return ship;
@@ -144,20 +144,44 @@ public class Input {
     public int[] shoot (int player){
         int GamePlayer=player+1;
         System.out.println("Player"+ GamePlayer+"shoot");
-        System.out.println("Gib Row");
-        int row=scanner.nextInt();
-        System.out.println("select col");
-        int col=scanner.nextInt();
+        int[] SelfReturn = {0,0};
 
-        String Message = String.valueOf(row)+ String.valueOf(col);
+        while ( Self_wait ){
+            try {
+              Thread.sleep(20);
+          } catch (InterruptedException e) {
+              System.out.println("Code 19");
+              e.printStackTrace();
+          }
+          }
+        Self_wait = true;
+
+        if ( (SelfRow != null )&& (SelfCol != null)){
+            System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
+            SelfReturn[0] = SelfRow;
+            SelfReturn[1]=  SelfCol;
+        } else {
+            System.out.println("Code Fehler 73");
+        }
+        
+        String Message = String.valueOf(SelfRow)+ String.valueOf(SelfCol);
 
         
         // Sends coordinates to Client
         for ( ClientHanlder aClient : ServerThread.Clients ){
             aClient.writer.println("/spl "+Message);
             aClient.writer.flush();
+            aClient.writer.println("/hit");
+            aClient.writer.flush();
+            // PlayingController2.ServerNotif.setText("Opponent's Turn");
+
+            // also allows player to hit 
         }
-        return new int[]{row,col};
+
+
+        SelfCol = null;
+        SelfRow = null;
+        return SelfReturn;
     }
 
     public int[] Servershoot (int player){

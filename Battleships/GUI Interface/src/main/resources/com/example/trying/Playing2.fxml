@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trying.PlayingController2">
+<AnchorPane fx:id="Pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trying.PlayingController2">
    <children>
       <ImageView fx:id="Background" fitHeight="496.0" fitWidth="666.0" layoutX="-21.0" layoutY="-3.0" opacity="0.56" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -56,7 +57,12 @@
          </image>
       </ImageView>
       <Pane fx:id="pane" layoutX="297.0" layoutY="261.0" prefHeight="218.0" prefWidth="241.0" />
-      <CheckBox fx:id="Horizontal" layoutX="555.0" layoutY="375.0" mnemonicParsing="false" text="Horizontal" />
+      <CheckBox fx:id="Horizontal" layoutX="555.0" layoutY="375.0" mnemonicParsing="false" text="Vertical" />
       <Pane fx:id="pane1" layoutX="297.0" layoutY="12.0" prefHeight="218.0" prefWidth="241.0" />
+      <Label fx:id="ServerNotif" layoutX="387.0" layoutY="233.0" prefHeight="17.0" prefWidth="61.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

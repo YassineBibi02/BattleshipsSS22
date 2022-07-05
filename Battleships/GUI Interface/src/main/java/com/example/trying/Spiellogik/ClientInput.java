@@ -116,7 +116,7 @@ public class ClientInput {
         int col=CoordinatesAndShiptype.get(1);
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
         boards.get(player).BuiltShip(shipPart,ship);
         System.out.println(ship.GetNewShip());
         return ship;
@@ -135,7 +135,7 @@ public class ClientInput {
         int col=CoordinatesAndShiptype.get(1);
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
         boards.get(player).BuiltShip(shipPart,ship);
         System.out.println(ship.GetNewShip());
         return ship;
@@ -145,19 +145,42 @@ public class ClientInput {
     public int[] shoot (int player){
         int GamePlayer=player+1;
         System.out.println("Player"+ GamePlayer+"shoot");
-        System.out.println("Gib Row");
-        int row=scanner.nextInt();
-        System.out.println("select col");
-        int col=scanner.nextInt();
+        int[] SelfReturn = {0,0};
+
+        while ( Self_wait ){
+            try {
+              Thread.sleep(20);
+          } catch (InterruptedException e) {
+              System.out.println("Code 19");
+              e.printStackTrace();
+          }
+          }
+        Self_wait = true;
+
+        if ( (SelfRow != null )&& (SelfCol != null)){
+            System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
+            SelfReturn[0] = SelfRow;
+            SelfReturn[1]=  SelfCol;
+        } else {
+            System.out.println("Code Fehler 73");
+        }
+        
+        String Message = String.valueOf(SelfRow)+ String.valueOf(SelfCol);
 
         //send to Server 
-        String Message = String.valueOf(row)+ String.valueOf(col);
 
         Client_Thread.writer.println("Player2#/spl$"+Message);
         Client_Thread.writer.flush();
+        Client_Thread.writer.println("Player2#/hit");// allows server to shoot
+        Client_Thread.writer.flush();
+        // PlayingController.ClientNotif.setText("Opponent's Turn");
+
+
         
         
-        return new int[]{row,col};
+        SelfCol = null;
+        SelfRow = null;
+        return SelfReturn;
     }
 
     public int[] Clientshoot (int player){

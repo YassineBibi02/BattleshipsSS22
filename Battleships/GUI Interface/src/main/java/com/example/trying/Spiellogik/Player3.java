@@ -6,12 +6,12 @@ import java.util.List;
 
 import com.example.trying.IpController;
 
-public class Player {
+public class Player3 {
     private List<Ship> ships;
     private Board boardPlayer;
     private int remainingShips=0;
 
-    public Player(List<Ship> shipss,Board bor){
+    public Player3(List<Ship> shipss,Board bor){
         this.boardPlayer=bor;
         this.ships=shipss;
     }
@@ -35,8 +35,8 @@ public class Player {
                     square.setSquarestat(SquareStatur.HIT);
                     boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.HIT);
                     System.out.println("Du hast Getroffen");
-                    IpController.playControl.PreviousMessage += "\nYou've been hit ";
-                    IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                    IpController.playControl2.PreviousMessage += "\nYou've been hit ";
+                    IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
                     return true;
                 }else if (square.Gety()==y && square.Getx()==x && square.Getsquarestat().equals(SquareStatur.HIT)){
                     square.setSquarestat(SquareStatur.HIT);
@@ -48,6 +48,7 @@ public class Player {
         }
         boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.MISSED);
         System.out.println("MISSED");
+
         return false;
 
     }

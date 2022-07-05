@@ -57,6 +57,9 @@ public class Client_Listener implements Runnable{
             ClientInput.SetClientCoordinates(Two / 10,Two % 10);
             System.out.println("Passed "+serverCommand); // DEBUG
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+         }else if (serverCommand.startsWith("/hit")){
+           PlayingController.HitAllowed = true;
+        //    PlayingController.ClientNotif.setText("Your Turn");
 
  
          } else
