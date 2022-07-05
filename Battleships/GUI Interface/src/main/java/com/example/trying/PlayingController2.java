@@ -35,6 +35,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import com.example.trying.Spiellogik.Input;
+
 public class PlayingController2 implements Initializable  {
     //All allied ships
     /*Ships ship01= new Ships(5,true);
@@ -52,6 +54,7 @@ public class PlayingController2 implements Initializable  {
     public ImageView ship5;
     private Stage stage;
     private Scene scene;
+    static public Integer count = 0;
 
     private Parent root;
     public void switchtoLost(ActionEvent event) throws IOException {
@@ -161,6 +164,11 @@ private Pane pane;
     public void hit(MouseEvent event,Ships ship){
         int gridx =(int)ship.getX() / squareSize;
         int gridy =(int)ship.getY() / squareSize;
+ 
+        ////////////////////////////////////
+
+
+
         gridenemy [gridx][gridy].setFill(Color.RED);
         ship.setX(squareSize/2 + squareSize * gridx);
         ship.setY(squareSize/2 + squareSize * gridy);
@@ -194,6 +202,13 @@ private int biggness = 5;
 
         int gridx =(int)ship.getX() / squareSize;
         int gridy =(int)ship.getY() / squareSize;
+        
+        if ( count < 5){
+        Input.setServerOwnCoordinates(gridx, gridy);
+        count ++;
+        }
+       
+
         try {
         if(Horizontal.isSelected() && shipCounter != 5){
             grid [gridx][gridy].setFill(Color.GREEN);
