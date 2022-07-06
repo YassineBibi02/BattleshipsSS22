@@ -98,7 +98,9 @@ public class Game {
                }
                if (NumberofshipsPlayer2==0){
                     display.PrintBoard(player2.Getboard());
-                    System.out.println("player 1 hat gewonnen");
+                    System.out.println("ABCD");
+                    IpController.playControl2.PreviousMessage += "\nYou Won! (Please leave)";
+                    IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
                     break;
                }
                ShootCoordination=board1.Servershoot(1);
@@ -110,7 +112,9 @@ public class Game {
                }
                if (NumberofshipsPlayer1==0){
                     display.PrintBoard(player1.Getboard());
-                    System.out.println("player 2 hat gewonnen");
+                    System.out.println("GEFG");
+                    IpController.playControl2.PreviousMessage += "\nYou Lost! (Please leave)";
+                    IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
                     break;
                }
 

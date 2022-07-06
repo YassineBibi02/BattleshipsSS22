@@ -86,7 +86,9 @@ public class ClientGame {
                }
                if (NumberofshipsPlayer1==0){
                     display.PrintBoard(player1.Getboard());
-                    System.out.println("player 2 hat gewonnen");
+                    System.out.println("ANWSER AB");
+                    IpController.playControl.PreviousMessage += "\nYou Lost! ( Please leave xD ) ";
+                 IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
                     break;
                }
                ShootCoordination=board1.shoot(0);
@@ -98,7 +100,10 @@ public class ClientGame {
                }
                if (NumberofshipsPlayer2==0){
                     display.PrintBoard(player2.Getboard());
-                    System.out.println("player 1 hat gewonnen");
+                    System.out.println("ANWSER CD");
+                    IpController.playControl.PreviousMessage += "\nYou Won! ( Please leave xD ) ";
+                 IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+
                     break;
                }
 
