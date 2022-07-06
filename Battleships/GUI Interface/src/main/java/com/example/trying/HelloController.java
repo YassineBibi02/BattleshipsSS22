@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -26,7 +25,7 @@ public class HelloController {
     public ImageView Logo;
     private Stage stage;
     private Scene scene;
-    public IpController ipControl;
+    public static IpController ipControl;
 
     private Parent root;
     public void switchtoIp(ActionEvent event) throws IOException {
@@ -43,7 +42,7 @@ public class HelloController {
         stage.show();
     }
     @FXML
-    public void Test(ActionEvent e){
+    public void Test(ActionEvent e){ // test = exit
         Stage stage = (Stage) Exit.getScene().getWindow();
         stage.close();
 

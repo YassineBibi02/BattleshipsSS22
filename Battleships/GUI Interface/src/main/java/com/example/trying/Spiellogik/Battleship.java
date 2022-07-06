@@ -2,7 +2,7 @@ package com.example.trying.Spiellogik;
 
 public class Battleship {
     private Display display;
-    private Game game=new Game();
+    public Game game=new Game();
     // private Input input;
 
 

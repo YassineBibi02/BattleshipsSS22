@@ -6,10 +6,12 @@ import java.util.List;
 
 import com.example.trying.IpController;
 
+import javafx.scene.paint.Color;
+
 public class Player {
     private List<Ship> ships;
     private Board boardPlayer;
-    private int remainingShips=0;
+    // private int remainingShips=0;
 
     public Player(List<Ship> shipss,Board bor){
         this.boardPlayer=bor;
@@ -37,17 +39,20 @@ public class Player {
                     System.out.println("Du hast Getroffen");
                     IpController.playControl.PreviousMessage += "\nYou've been hit ";
                     IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                    IpController.playControl.grid[y][x].setFill(Color.ORANGE);
                     return true;
                 }else if (square.Gety()==y && square.Getx()==x && square.Getsquarestat().equals(SquareStatur.HIT)){
                     square.setSquarestat(SquareStatur.HIT);
                     boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.HIT);
                     System.out.println("Schon Getroffen");
+                   
                     return false;
                 }
             }
         }
         boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.MISSED);
         System.out.println("MISSED");
+        IpController.playControl.grid[y][x].setFill(Color.GRAY);
         return false;
 
     }

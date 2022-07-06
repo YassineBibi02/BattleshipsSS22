@@ -8,7 +8,7 @@ public enum ShipType {
     KANAS(3),
     EDIA(2),
     KABIRA(1),
-    GUEZ(4);
+    GUEZ(7);
 
     private final Integer label;
 

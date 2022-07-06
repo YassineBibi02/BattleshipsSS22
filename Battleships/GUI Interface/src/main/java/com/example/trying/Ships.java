@@ -14,8 +14,8 @@ public class Ships extends Parent {
     private double x;
     private double y;
     private Circle c;
-    private double height;
-    private double width;
+    // private double height;
+    // private double width;
     private double radius;
     public int size = 0 ;
     public boolean vertical = false;

@@ -4,13 +4,19 @@ package com.example.trying.Spiellogik;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.trying.*;
+import com.example.trying.IpController;
+import com.example.trying.PlayingController;
+
+import javafx.scene.paint.Color;
+
 
 
 public class ClientGame {
     private List<Ship> shipPlayer1=new ArrayList<>();
      private List<Ship> shipPlayer2=new ArrayList<>();
+     public  boolean GameOn;
      List<Board> boards;
+     
 
      public void GameLogik(){
           ClientInput board1=new ClientInput();
@@ -24,22 +30,40 @@ public class ClientGame {
           for (int i=0;i<5;i++){                // Wait for Opponent to fill out site and then play
                Ship one =board1.ClientcreateShip(1);
                while (one.IsplacementOk(one,shipPlayer2,boardPlayer2)==false){
+                    ClientInput.ShipNum1--;
                     one=board1.ClientcreateShip(0);
                }
                shipPlayer2.add(one);
           }
           // PlayingController.ClientNotif.setText("Your Turn");
+          PlayingController.Aasba = true;
           ClientInput.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){
             Ship one =board1.createShip(0);
             while (one.IsplacementOk(one,shipPlayer1,boardPlayer1)==false){
+              
+                 IpController.playControl.PreviousMessage += "\nInvalid Placement";
+                 IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                 IpController.playControl.shipCounter--;
+                 IpController.playControl.biggness++;
+                 ClientInput.ShipNum1--;
                  one=board1.createShip(0);
+
+
+
+
             }
+
+            for (int j=0;j<one.GetNewShip().size();j++) {
+               System.out.printf("Size at %d ,index : %d\n",one.GetNewShip().size(), j);
+               IpController.playControl.grid[one.GetNewShip().get(j).Gety()][one.GetNewShip().get(j).Getx()].setFill(Color.GREEN);
+          }
+          
             shipPlayer1.add(one);
        }
           Player player1=new Player(shipPlayer1,boardPlayer2);
           Player1 player2=new Player1(shipPlayer2,boardPlayer1);
-          boolean GameOn=true;
+          GameOn=true; //// Win condition SERVER
           Display display=new Display();
           System.out.println("-----Player1 Board -------");
           display.PrintBoard(boardPlayer1);
@@ -80,5 +104,8 @@ public class ClientGame {
 
 
           }
+
+          //// winning
+          System.out.println("TEST TEST TEST");
      }
 }

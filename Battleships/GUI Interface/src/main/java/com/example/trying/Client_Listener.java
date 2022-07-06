@@ -1,6 +1,9 @@
 package com.example.trying;
 import com.example.trying.Spiellogik.*;
 
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -56,13 +59,26 @@ public class Client_Listener implements Runnable{
             Integer Two = Integer.valueOf(serverCommand.substring(Index+2)) ;
             ClientInput.SetClientCoordinates(Two / 10,Two % 10);
             System.out.println("Passed "+serverCommand); // DEBUG
-            IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+            IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage); // UPDATE 
+            
+
          }else if (serverCommand.startsWith("/hit")){
            PlayingController.HitAllowed = true;
         //    PlayingController.ClientNotif.setText("Your Turn");
 
  
-         } else
+         } else if ( serverCommand.startsWith("/SURR")){
+            //CLOSES CLIENT GAME THREAD 
+            HelloController.ipControl.ClientGame.stop();;;
+            System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
+            IpController.playControl.PreviousMessage += "\nYou won! bras omek o5rej mil programme";
+            IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+            // System.out.println("SURRENDER PASSED");
+
+            
+            
+
+         }else
         
         System.out.println(serverCommand);}
         }

@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Group root = new Group();
+        // Group root = new Group();
         Image icon = new Image("Logo.png");
         Scene scene = new Scene(fxmlLoader.load(),Color.LIGHTBLUE);
         stage.getIcons().add(icon);

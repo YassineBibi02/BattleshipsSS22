@@ -1,9 +1,7 @@
 package com.example.trying;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,23 +9,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.lang.module.ModuleDescriptor;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -53,15 +42,28 @@ public class PlayingController implements Initializable  {
     public ImageView ship5;
     private Stage stage;
     private Scene scene;
+    public Button Surr;
+    static public boolean  ClientLost = false;
     static public Integer count = 0;
-    private Parent root;
+    static public boolean Aasba = false;
+    // private Parent root;
     public void switchtoLost(ActionEvent event) throws IOException {
+        ClientLost = true;//
+        
+        /// Send to server SURRENDER
+        Client_Thread.writer.println("Player2#/SURR");
+        Client_Thread.writer.flush();
+
+
+        
         Parent root = FXMLLoader.load(getClass().getResource("Lost.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
+    
     @FXML
     private TextField Column;
     @FXML
@@ -80,7 +82,7 @@ private Pane pane;
     //An Arraylist of the Cursors and NOT the ships. these Cursors are placed in an Arraylist to keep track of them.
     private ArrayList<Ships> Ships;
     //All 2 2 dimensional arrays to keep track of the coordinates when we need them
-    private  Rectangle[][] grid;
+    public  Rectangle[][] grid;
     private Rectangle[][] gridenemy;
     /*
     A check box used to check whether a ship will be placed vertically or horizontally
@@ -189,14 +191,15 @@ private Pane pane;
     }
     //function making the pieces draggable
     public void dragged(MouseEvent event,Ships ship){
+        if ( Aasba ){
         ship.setX(ship.getX()+event.getX());
         ship.setY(ship.getY()+event.getY());
         ship.draw();
-    }
+    }}
     //biggness is the size of the ship, it is used to keep track of what ships we placed and what ships to place after
-private int biggness = 5;
+public  int biggness = 5;
     //Used as to not surpass 5 ships placed
-    private int shipCounter = 0;
+    public int shipCounter = 0;
     /*placing ships, the ships are represented by green tiles marking them as SHIPS.
 
     * this method took the most time
@@ -207,24 +210,28 @@ private int biggness = 5;
     * */
    
     public void released(MouseEvent event , Ships ship){
-
+     if ( Aasba ){
         int gridx =(int)ship.getX() / squareSize;
         int gridy =(int)ship.getY() / squareSize;
-        if (shipCounter < 5 ){
-        ClientInput.setClientOwnCoordinates(gridx, gridy); 
         
-        }
 
         try {
         if(!Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
-            grid [gridx][gridy].setFill(Color.GREEN);
-            for(int i=0;i < biggness; i++){
+            
+            if (shipCounter < 5 ){
+                ClientInput.setClientOwnCoordinates(gridx, gridy); 
+                
+                }
 
-                grid[gridx + i][gridy].setFill(Color.GREEN);
-            }
+
+    //         grid [gridx][gridy].setFill(Color.GREEN);
+    //         for(int i=0;i < biggness; i++){
+
+    //             grid[gridx + i][gridy].setFill(Color.GREEN);
+    //         }
             this.biggness--;
             shipCounter++;
-            
+    
         }} catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Unable to place ship");
             try{
@@ -248,6 +255,11 @@ private int biggness = 5;
                 grid[gridx][gridy+ i].setFill(Color.GREEN);
             }
             this.biggness--;
+
+
+            // Sends the XY Cordinates to the vertical Shit
+            
+            
             shipCounter++;
         }}catch(ArrayIndexOutOfBoundsException e){
            System.out.println("Unable to place ship");
@@ -267,10 +279,10 @@ private int biggness = 5;
         ship.setX(squareSize/2 + squareSize * gridx);
         ship.setY(squareSize/2 + squareSize * gridy);
         ship.draw();
-        // if(shipCounter == 5){
-        //     HitAllowed = true;
-        // }
-    }
+        if(shipCounter == 5){
+            Aasba = false;
+        }
+    }}
     /*
      * The Chat Variables and the Chat Methods GUI sided. (Namly writing, storing and outputting.).
      *
@@ -301,6 +313,7 @@ private int biggness = 5;
         Client_Thread.writer.println("Player2#/txtb$"+Message);
         Client_Thread.writer.flush();
         
+        
 
 
         String CurrentChatMessage = PreviousMessage + "\n"+"Player2: "+Message;
@@ -317,5 +330,10 @@ private int biggness = 5;
         Chat.setText(PreviousMessage);
 
 
+    }
+
+    public void presstest(){
+
+        Surr.fire();
     }
 }

@@ -48,5 +48,11 @@ public class Ship {
         }
     }
 
+    @Override
+    public String toString() {
+        String returned = String.valueOf(this.typevonShip.Getlabel()); 
+        return returned ;
+    }
+
 
 }

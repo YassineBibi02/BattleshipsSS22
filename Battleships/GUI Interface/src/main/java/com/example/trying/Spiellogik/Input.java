@@ -55,7 +55,7 @@ public class Input {
 
         //  Dass Input muss was anders Sein 
         if ( (SelfRow != null )&& (SelfCol != null)){
-        System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
+        System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol); // Debug
         CoordinatesAndShiptype.add(SelfRow);
         CoordinatesAndShiptype.add(SelfCol);
         CoordinatesAndShiptype.add(ShipNum1);
@@ -92,7 +92,7 @@ public class Input {
 
         Server_wait = true;
         if ( (ServerRow != null )&& (ServerCol != null)){
-         System.out.printf("Passed %d as Row and %d as Col\n", ServerRow, ServerCol);
+        //  System.out.printf("Passed %d as Row and %d as Col\n", ServerRow, ServerCol); debug
          CoordinatesAndShiptype.add(ServerRow);
          CoordinatesAndShiptype.add(ServerCol);
          CoordinatesAndShiptype.add(ShipNum1);
@@ -113,11 +113,13 @@ public class Input {
         CoordinatesAndShiptype=ServerAskCoordForShipAndTyp();
         int row=CoordinatesAndShiptype.get(0);
         int col=CoordinatesAndShiptype.get(1);
+        
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
+        // System.out.printf("\n Ship = %d\n ", (ShipType.values()[shiptype-1]).Getlabel()); debug
         boards.get(player).BuiltShip(shipPart,ship);
-        System.out.println(ship.GetNewShip());
+        // System.out.println(ship.GetNewShip());
         return ship;
 
     }
@@ -132,11 +134,14 @@ public class Input {
         CoordinatesAndShiptype=AskCoordForShipAndTyp();
         int row=CoordinatesAndShiptype.get(0);
         int col=CoordinatesAndShiptype.get(1);
+        
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
+        
+        // System.out.printf("\n Ship = %d\n ", (ShipType.values()[shiptype-1]).Getlabel()); DEBUG
         boards.get(player).BuiltShip(shipPart,ship);
-        System.out.println(ship.GetNewShip());
+        // System.out.println(ship.GetNewShip());
         return ship;
 
     }
@@ -198,7 +203,7 @@ public class Input {
          }
          Server_wait = true;
          if ( (ServerRow != null )&& (ServerCol != null)){
-            System.out.printf("Passed %d as Row and %d as Col\n", ServerRow, ServerCol);
+            System.out.printf("Passed %d as Row and %d as Col\n", ServerRow, ServerCol); 
          ServerReturn[0] = ServerRow;
          ServerReturn[1]=  ServerCol;
          } else {

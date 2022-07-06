@@ -71,6 +71,63 @@ public class Board {
                 ship.Addsquere(new Squere(x,y+2,SquareStatur.SHIP));
                 ship.Addsquere(new Squere(x,y+3,SquareStatur.SHIP));
                 break;
+            case 5: 
+                square.setSquarestat(SquareStatur.SHIP);
+                ship.Addsquere(square);
+                x =square.Getx();
+                y = square.Gety();
+                ship.Addsquere(new Squere(x,y+1,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x,y+2,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x,y+3,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x,y+4,SquareStatur.SHIP));
+                break;   
+            default:
+                break;
+        }
+
+
+    }
+    public void BuiltShipVertical(Squere square, Ship ship){
+        switch (ship.GettypevonShip().Getlabel()){
+            case  1:
+                square.setSquarestat(SquareStatur.SHIP);
+                ship.Addsquere(square);
+                break;
+            case 2:
+                //lehni thabt belkchi tatla3 declari fil x
+                square.setSquarestat(SquareStatur.SHIP);
+                ship.Addsquere(square);
+                int x =square.Getx();
+                int y = square.Gety();
+                ship.Addsquere(new Squere(x+1,y,SquareStatur.SHIP));
+                break;
+            case  3:
+                square.setSquarestat(SquareStatur.SHIP);
+                ship.Addsquere(square);
+                x =square.Getx();
+                y = square.Gety();
+                ship.Addsquere(new Squere(x+1,y,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x+2,y,SquareStatur.SHIP));
+                break;
+            case 4:
+                square.setSquarestat(SquareStatur.SHIP);
+                ship.Addsquere(square);
+                x =square.Getx();
+                y = square.Gety();
+                ship.Addsquere(new Squere(x+1,y,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x+2,y,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x+3,y,SquareStatur.SHIP));
+                break;
+            case 5: 
+                square.setSquarestat(SquareStatur.SHIP);
+                ship.Addsquere(square);
+                x =square.Getx();
+                y = square.Gety();
+                ship.Addsquere(new Squere(x+1,y,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x+2,y,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x+3,y,SquareStatur.SHIP));
+                ship.Addsquere(new Squere(x+4,y,SquareStatur.SHIP));
+                break;   
             default:
                 break;
         }

@@ -57,7 +57,7 @@ public class ClientInput {
 
         //  Dass Input muss was anders Sein 
         if ( (SelfRow != null )&& (SelfCol != null)){
-        System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
+        // System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
 
         CoordinatesAndShiptype.add(SelfRow);
         CoordinatesAndShiptype.add(SelfCol);
@@ -93,7 +93,7 @@ public class ClientInput {
 
         Client_wait = true;
         if ( (ClientRow != null )&& (ClientCol != null)){
-         System.out.printf("Passed %d as Row and %d as Col\n", ClientRow, ClientCol);
+        //  System.out.printf("Passed %d as Row and %d as Col\n", ClientRow, ClientCol);
          CoordinatesAndShiptype.add(ClientRow);
          CoordinatesAndShiptype.add(ClientCol);
          CoordinatesAndShiptype.add(ShipNum1);
@@ -116,9 +116,9 @@ public class ClientInput {
         int col=CoordinatesAndShiptype.get(1);
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
         boards.get(player).BuiltShip(shipPart,ship);
-        System.out.println(ship.GetNewShip());
+        // System.out.println(ship.GetNewShip());
         return ship;
 
     }
@@ -135,9 +135,9 @@ public class ClientInput {
         int col=CoordinatesAndShiptype.get(1);
         int shiptype=CoordinatesAndShiptype.get(2);
         shipPart=new Squere(row,col,SquareStatur.SHIP);
-        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype]);
+        ship=new Ship(new ArrayList<>(),ShipType.values()[shiptype-1]);
         boards.get(player).BuiltShip(shipPart,ship);
-        System.out.println(ship.GetNewShip());
+        // System.out.println(ship.GetNewShip());
         return ship;
 
     }
@@ -158,7 +158,7 @@ public class ClientInput {
         Self_wait = true;
 
         if ( (SelfRow != null )&& (SelfCol != null)){
-            System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
+            // System.out.printf("Passed %d as Row and %d as Col\n", SelfRow, SelfCol);
             SelfReturn[0] = SelfRow;
             SelfReturn[1]=  SelfCol;
         } else {
@@ -197,7 +197,7 @@ public class ClientInput {
          }
          Client_wait = true;
          if ( (ClientRow != null )&& (ClientCol != null)){
-            System.out.printf("Passed %d as Row and %d as Col\n", ClientRow, ClientCol);
+            // System.out.printf("Passed %d as Row and %d as Col\n", ClientRow, ClientCol);
          ClientReturn[0] = ClientRow;
          ClientReturn[1]=  ClientCol;
          } else {

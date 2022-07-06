@@ -1,9 +1,8 @@
 package com.example.trying;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,28 +10,27 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.module.ModuleDescriptor;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
 import com.example.trying.Spiellogik.Input;
+import com.example.trying.Spiellogik.MainThread;
 
 public class PlayingController2 implements Initializable  {
     //All allied ships
@@ -51,11 +49,23 @@ public class PlayingController2 implements Initializable  {
     public ImageView ship4;
     public ImageView ship5;
     private Stage stage;
+
     private Scene scene;
     static public Integer count = 0;
 
-    private Parent root;
+    public static boolean Aasba = true;
+    public Integer test = 5 ;
+
+    // private Parent root;
     public void switchtoLost(ActionEvent event) throws IOException {
+
+        // Send to client SURRENDER
+        for ( ClientHanlder aClient : ServerThread.Clients ){
+            aClient.writer.println("/SURR");
+            aClient.writer.flush();
+        }
+
+
         Parent root = FXMLLoader.load(getClass().getResource("Lost.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -80,7 +90,7 @@ private Pane pane;
     //An Arraylist of the Cursors and NOT the ships. these Cursors are placed in an Arraylist to keep track of them.
     private ArrayList<Ships> Ships;
     //All 2 2 dimensional arrays to keep track of the coordinates when we need them
-    private  Rectangle[][] grid;
+    public  Rectangle[][] grid;
     private Rectangle[][] gridenemy;
     /*
     A check box used to check whether a ship will be placed vertically or horizontally
@@ -190,14 +200,16 @@ private Pane pane;
     }}
     //function making the pieces draggable
     public void dragged(MouseEvent event,Ships ship){
+        if ( Aasba ){ 
         ship.setX(ship.getX()+event.getX());
         ship.setY(ship.getY()+event.getY());
         ship.draw();
+        }
     }
     //biggness is the size of the ship, it is used to keep track of what ships we placed and what ships to place after
-private int biggness = 5;
+    public int biggness = 5;
     //Used as to not surpass 5 ships placed
-    private int shipCounter = 0;
+    public int shipCounter = 0;
     /*placing ships, the ships are represented by green tiles marking them as SHIPS.
 
     * this method took the most time
@@ -210,25 +222,34 @@ private int biggness = 5;
     public Label ServerNotif;
     
     public void released(MouseEvent event , Ships ship){
-
+     
         int gridx =(int)ship.getX() / squareSize;
         int gridy =(int)ship.getY() / squareSize;
         
-        if ( shipCounter < 5){
-        Input.setServerOwnCoordinates(gridx, gridy);
-         
-        }
+     
+     if ( Aasba ){  
+        
 
 
         try {
         if(!Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
-            grid [gridx][gridy].setFill(Color.GREEN);
-            for(int i=0;i < biggness; i++){
-
-                grid[gridx + i][gridy].setFill(Color.GREEN);
+            
+            if ( shipCounter < 5){
+                Input.setServerOwnCoordinates(gridy, gridx);
             }
+        
+          
+            // grid [gridx][gridy].setFill(Color.GREEN);
+            // for(int i=0;i < biggness; i++){
+
+            //     grid[gridx + i][gridy].setFill(Color.GREEN);
+            // }
             this.biggness--;
             shipCounter++;
+            // System.out.printf("Number %d\n", shipCounter);
+           
+
+          
         }} catch(ArrayIndexOutOfBoundsException e){
             System.out.println("Unable to place ship");
             try{
@@ -246,12 +267,16 @@ private int biggness = 5;
 
         }
        try{
-        if (Horizontal.isSelected() && shipCounter != 5){
+        if (Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
             grid [gridx][gridy].setFill(Color.GREEN);
             for(int i=0;i < biggness; i++){
                 grid[gridx][gridy+ i].setFill(Color.GREEN);
             }
             this.biggness--;
+
+
+            // TE3 function tab3eth l horizontale 
+
             shipCounter++;
         }}catch(ArrayIndexOutOfBoundsException e){
            System.out.println("Unable to place ship");
@@ -267,12 +292,14 @@ private int biggness = 5;
            }}catch(ArrayIndexOutOfBoundsException exception){
            System.out.println("Placement Canceled");
        }
-       }
+       }}
         ship.setX(squareSize/2 + squareSize * gridx);
         ship.setY(squareSize/2 + squareSize * gridy);
         ship.draw();
         if(shipCounter==5){
             HitAllowed = true;
+            Aasba = false;
+            System.out.printf("Asba is now %b", Aasba);
         }
     }
     /*
@@ -323,4 +350,8 @@ private int biggness = 5;
 
 
     }
+    // public void presstest(){
+
+    //     Surr.fire();
+    // }
 }

@@ -56,7 +56,7 @@ public class ClientHanlder implements Runnable {
             }  else
             if ( extract_text(s).startsWith("/txtb")){  
                System.out.println(s);
-               System.out.printf("[Debug] [%s] Message: %s\n" ,extract_name(s),extract_Oldname(s) );
+            //    System.out.printf("[Debug] [%s] Message: %s\n" ,extract_name(s),extract_Oldname(s) );
                IpController.playControl2.PreviousMessage += "\nPlayer2: "+extract_Oldname(s);
                IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
                // PRINT OUT TO CONSOLE ??
@@ -65,18 +65,28 @@ public class ClientHanlder implements Runnable {
                 // input like Client0#/spl$00
                 Integer Two = Integer.valueOf(extract_Oldname(s)) ;
                 Input.SetServerCoordinates(Two / 10,Two % 10);
-                System.out.println("Passed "+s); // DEBUG
+                // System.out.println("Passed "+s); // DEBUG
 
              }
              else if (extract_text(s).startsWith("/hit")){
                PlayingController2.HitAllowed = true;
             //    PlayingController2.ServerNotif.setText("Your Turn");
 
-             }else 
+             }else if (extract_text(s).startsWith("/SURR")){
+                // Closes ServerGame Thread
+
+                HelloController.ipControl.ServerGame.stop();;;
+                System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
+                // System.out.println("SURRENDER PASSED");
+                IpController.playControl2.PreviousMessage += "\nYou Won!";
+               IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+           
+ 
+              }else 
              {
              System.out.printf("[Server] [%s] : %s\n", extract_name(s),extract_text(s) ); // Feedback to Server System
              ToAll(s); // Sends the Message ( incase it doesnt have any commands ) to the connected clients
-             System.out.println(s); // DEBUG
+            //  System.out.println(s); // DEBUG
              }
      
          }   

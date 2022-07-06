@@ -31,7 +31,7 @@ public class Client_Thread implements Runnable{
     //_________________________________________________________________________________________________________________________
     
             Scanner In = new Scanner(System.in); // Scanner for user input
-            String Txt = null;
+            // String Txt = null;
             try {
               Thread.sleep(20);            // This tiny wait gives chances for the Listener Thread to actually recieve and Give a proper name to client. Not mendatory but recommanded
             } catch (InterruptedException e) {

@@ -9,7 +9,7 @@ import com.example.trying.IpController;
 public class Player2 {
     private List<Ship> ships;
     private Board boardPlayer;
-    private int remainingShips=0;
+    // private int remainingShips=0;
 
     public Player2(List<Ship> shipss,Board bor){
         this.boardPlayer=bor;

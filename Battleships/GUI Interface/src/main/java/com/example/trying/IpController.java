@@ -14,7 +14,9 @@ public class IpController {
     static public PlayingController2 playControl2;
     private Stage stage;
     private Scene scene;
-    private Parent root;
+    public Thread ClientGame;
+    public Thread ServerGame;
+    // private Parent root;
     public void switchtoMain(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -26,8 +28,8 @@ public class IpController {
     public void switchtoPlaying(ActionEvent event) throws IOException {
         Thread T1=   new Thread(new Client_Thread());
         T1.start();
-        Thread T2=  new Thread(new MainThreadClient());
-        T2.start();
+        ClientGame=  new Thread(new MainThreadClient());
+        ClientGame.start();
        
         
         
@@ -46,8 +48,8 @@ public class IpController {
     public void switchtoHosting(ActionEvent event) throws IOException {
         Thread T1=   new Thread(new ServerThread());
         T1.start();
-        Thread T2 = new Thread ( new MainThread());
-        T2.start();
+        ServerGame = new Thread ( new MainThread());
+        ServerGame.start();
         
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Playing2.fxml"));
