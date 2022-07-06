@@ -4,6 +4,7 @@ package com.example.trying.Spiellogik;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.trying.Client_Thread;
 import com.example.trying.IpController;
 import com.example.trying.PlayingController;
 
@@ -89,6 +90,7 @@ public class ClientGame {
                     System.out.println("ANWSER AB");
                     IpController.playControl.PreviousMessage += "\nYou Lost! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                 Client_Thread.Stop=true;
                     break;
                }
                ShootCoordination=board1.shoot(0);
@@ -103,6 +105,7 @@ public class ClientGame {
                     System.out.println("ANWSER CD");
                     IpController.playControl.PreviousMessage += "\nYou Won! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                    Client_Thread.Stop=true;
 
                     break;
                }

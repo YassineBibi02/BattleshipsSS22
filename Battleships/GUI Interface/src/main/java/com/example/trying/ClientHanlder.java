@@ -3,6 +3,9 @@ package com.example.trying;
 
 
 import com.example.trying.Spiellogik.*;
+
+import javafx.scene.paint.Stop;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,7 +42,7 @@ public class ClientHanlder implements Runnable {
          Naame = Name.Get_Name();      // Assign a Name to The Client in an Increasing fashion
          writer.println("/ws2 "+Naame);       // Pushes the Name Command to the Client
          EToAll("'"+ Naame +"' Connected");   // Custom Message send to Other Connected Users
-         while ( ( s = reader.readLine() ) != null ) {
+         while ( ( s = reader.readLine() ) != null && !ServerThread.Stop ) {
              if ( extract_text(s).startsWith("/dis")){ // if the Client wishes to disconnect Breaks the Listening Loop , thus ending the Connection and ending the thread
                 EToAll("'"+ extract_name(s) +"' Disconnected"); // broadcasts that the client is disconnected 
                 System.out.printf("[Server] '%s' Disconnected\n", extract_name(s));
@@ -52,6 +55,10 @@ public class ClientHanlder implements Runnable {
              }  else
              if ( extract_text(s).startsWith("/list")){  
                 writer.println("[Server] Connected Users : "+ Get_ALLnames());
+               
+            }  else
+            if ( extract_text(s).startsWith("/Disconnected")){  
+                ServerThread.Counter--;
                
             }  else
             if ( extract_text(s).startsWith("/txtb")){  
@@ -80,6 +87,7 @@ public class ClientHanlder implements Runnable {
                 // System.out.println("SURRENDER PASSED");
                 IpController.playControl2.PreviousMessage += "\nYou Won!";
                IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                ServerThread.Stop=true;
            
  
               }else 
@@ -98,6 +106,7 @@ public class ClientHanlder implements Runnable {
         }
         finally{
             writer.close();
+            System.out.println("[ClientHandler]Closed ");
             try {
                 reader.close();
             } catch (IOException e) {

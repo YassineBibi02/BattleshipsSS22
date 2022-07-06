@@ -82,10 +82,13 @@ public class Client_Thread implements Runnable{
             while ( !Stop ){
               Thread.sleep(20);
             }
+            writer.write(Own_Name+"#"+"/Disconnected\n");  // notifies server
+            writer.flush();
             writer.close();
             Client.close();
             In.close();
             System.out.println("[Client] Process Closed");
+
         } catch (ConnectException e){
             System.out.println("[Client] No Server Online");
         } catch (UnknownHostException e) {

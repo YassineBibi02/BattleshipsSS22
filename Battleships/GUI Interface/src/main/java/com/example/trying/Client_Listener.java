@@ -1,8 +1,6 @@
 package com.example.trying;
 import com.example.trying.Spiellogik.*;
 
-import javafx.event.ActionEvent;
-import javafx.event.Event;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +28,7 @@ public class Client_Listener implements Runnable{
     public void run() {
        String serverCommand;
     try {
-        while (true){
+        while (!Client_Thread.Stop){
        
         serverCommand = reader.readLine();
         if (serverCommand == null){throw new IOException();}    // No Server Connection
@@ -74,6 +72,7 @@ public class Client_Listener implements Runnable{
             IpController.playControl.PreviousMessage += "\nYou won! bras omek o5rej mil programme";
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
             // System.out.println("SURRENDER PASSED");
+            Client_Thread.Stop= true;
 
             
             

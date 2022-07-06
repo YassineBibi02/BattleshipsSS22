@@ -101,6 +101,7 @@ public class Game {
                     System.out.println("ABCD");
                     IpController.playControl2.PreviousMessage += "\nYou Won! (Please leave)";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    ServerThread.Stop=true;
                     break;
                }
                ShootCoordination=board1.Servershoot(1);
@@ -115,6 +116,7 @@ public class Game {
                     System.out.println("GEFG");
                     IpController.playControl2.PreviousMessage += "\nYou Lost! (Please leave)";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    ServerThread.Stop=true;
                     break;
                }
 

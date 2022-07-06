@@ -64,7 +64,7 @@ public class PlayingController2 implements Initializable  {
             aClient.writer.println("/SURR");
             aClient.writer.flush();
         }
-
+        ServerThread.Stop=true;
 
         Parent root = FXMLLoader.load(getClass().getResource("Lost.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
