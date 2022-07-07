@@ -219,7 +219,7 @@ public  int biggness = 5;
         if(!Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
             
             if (shipCounter < 5 ){
-                ClientInput.setClientOwnCoordinates(gridx, gridy); 
+                ClientInput.setClientOwnCoordinates(gridy, gridx); 
                 
                 }
 

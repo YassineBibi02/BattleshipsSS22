@@ -27,7 +27,7 @@ public class Ship {
         int Zahl=0;
         //Verify if the Ship is on the Board
         for (int i=0;i<ship1.GetNewShip().size();i++) {
-            if (ship1.GetNewShip().get(i).Gety() > board.GetSizeY() || ship1.GetNewShip().get(i).Getx()>board.GetSizeX() ){
+            if (ship1.GetNewShip().get(i).Gety() > board.GetSizeY()-1 || ship1.GetNewShip().get(i).Getx()>board.GetSizeX()-1 ){
                 Zahl++;
             }
             //verify if the ship is on other Ship
