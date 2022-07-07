@@ -40,13 +40,13 @@ public class PlayingController implements Initializable  {
     public ImageView ship3;
     public ImageView ship4;
     public ImageView ship5;
-    private Stage stage;
+    public Stage stage;
     private Scene scene;
     public Button Surr;
     static public boolean  ClientLost = false;
     static public Integer count = 0;
     static public boolean Aasba = false;
-    // private Parent root;
+    public Parent root;
     public void switchtoLost(ActionEvent event) throws IOException {
         ClientLost = true;//
         
@@ -56,7 +56,7 @@ public class PlayingController implements Initializable  {
 
 
         
-        Parent root = FXMLLoader.load(getClass().getResource("Lost.fxml"));
+        root = FXMLLoader.load(getClass().getResource("Lost.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -336,4 +336,21 @@ public  int biggness = 5;
 
         Surr.fire();
     }
+
+    public void changeScene(String fxml){
+        Parent pane;
+        try {
+            
+            pane = FXMLLoader.load( getClass().getResource(fxml));
+            HelloApplication.PrimaryStage.getScene().setRoot(pane);
+        } catch (IOException e) {
+          System.out.println("Test 1821");  
+          e.printStackTrace();
+        }
+    
+       
+    }
+
+
+
 }

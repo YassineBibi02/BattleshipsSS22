@@ -10,9 +10,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
+    public static Stage PrimaryStage ;
     @Override
+    
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+        PrimaryStage = stage;
         // Group root = new Group();
         Image icon = new Image("Logo.png");
         Scene scene = new Scene(fxmlLoader.load(),Color.LIGHTBLUE);

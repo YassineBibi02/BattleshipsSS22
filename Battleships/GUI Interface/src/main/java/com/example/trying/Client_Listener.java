@@ -1,6 +1,10 @@
 package com.example.trying;
 import com.example.trying.Spiellogik.*;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,12 +71,19 @@ public class Client_Listener implements Runnable{
  
          } else if ( serverCommand.startsWith("/SURR")){
             //CLOSES CLIENT GAME THREAD 
-            HelloController.ipControl.ClientGame.stop();;;
-            System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
+            // HelloController.ipControl.ClientGame.stop();;;
+            // System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
             IpController.playControl.PreviousMessage += "\nYou won! bras omek o5rej mil programme";
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
             // System.out.println("SURRENDER PASSED");
+
+              
+            System.out.println("FEEDBACK 1 ");
             Client_Thread.Stop= true;
+            //WIP 8.7.2022
+            IpController.playControl.changeScene( "YouWin.fxml");
+
+            //
 
             
             
