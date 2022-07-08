@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
@@ -83,7 +84,7 @@ private Pane pane;
     private ArrayList<Ships> Ships;
     //All 2 2 dimensional arrays to keep track of the coordinates when we need them
     public  Rectangle[][] grid;
-    private Rectangle[][] gridenemy;
+    public Rectangle[][] gridenemy;
     /*
     A check box used to check whether a ship will be placed vertically or horizontally
     if its selected, ship will be placed horizontally on the grid going from the cursor to the right
@@ -98,9 +99,11 @@ private Pane pane;
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //making the text are for the chat read only.
       Chat.setEditable(false);
+      Chat.setText(PreviousMessage);
       //Initializing the grids
 
       ClientNotif.setText("Oppenent's Turn");
+      ClientNotif.setTextAlignment(TextAlignment.CENTER);
 
       grid = new Rectangle[spots][spots];
       gridenemy = new Rectangle[spots][spots];
@@ -298,7 +301,7 @@ public  int biggness = 5;
      * */
     @FXML
     private Button button_send;
-    public String PreviousMessage = "Player 1 is placing His Ships!";
+    public String PreviousMessage = "[Connected]\n[Game Started!]";
     @FXML
     private TextField tf_message;
     @FXML

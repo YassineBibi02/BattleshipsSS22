@@ -4,7 +4,7 @@ package com.example.trying;
 
 import com.example.trying.Spiellogik.*;
 
-import javafx.scene.paint.Stop;
+import javafx.application.Platform;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -78,18 +78,24 @@ public class ClientHanlder implements Runnable {
              }
              else if (extract_text(s).startsWith("/hit")){
                PlayingController2.HitAllowed = true;
+               Platform.runLater( new Runnable() {
+                @Override public void run(){
+                IpController.playControl2.ServerNotif.setText("Your Turn");}
+           } );
             //    PlayingController2.ServerNotif.setText("Your Turn");
 
              }else if (extract_text(s).startsWith("/SURR")){
                 // Closes ServerGame Thread
 
-                HelloController.ipControl.ServerGame.stop();;;
+                HelloController.ipControl.ServerGame.stop();
                 System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
                 // System.out.println("SURRENDER PASSED");
                 IpController.playControl2.PreviousMessage += "\nYou Won!";
-               IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
-               IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
+                IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                 ServerThread.Stop=true;
+             
+                IpController.playControl.changeScene( "YouWin.fxml");
            
  
               }else 

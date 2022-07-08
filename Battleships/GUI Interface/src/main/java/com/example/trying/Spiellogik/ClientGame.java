@@ -8,6 +8,7 @@ import com.example.trying.Client_Thread;
 import com.example.trying.IpController;
 import com.example.trying.PlayingController;
 
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
 
@@ -37,6 +38,10 @@ public class ClientGame {
                shipPlayer2.add(one);
           }
           // PlayingController.ClientNotif.setText("Your Turn");
+          Platform.runLater( new Runnable() {
+               @Override public void run(){
+               IpController.playControl.ClientNotif.setText("Your Turn");}
+          } );
           PlayingController.Aasba = true;
           ClientInput.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){
@@ -75,11 +80,16 @@ public class ClientGame {
           int NumberofshipsPlayer1=player1.NumberOfSquareofShips(shipPlayer1);
           int NumberofshipsPlayer2=player2.NumberOfSquareofShips(shipPlayer2);
           // PlayingController.ClientNotif.setText("Opponent's Turn");
+          Platform.runLater( new Runnable() {
+               @Override public void run(){
+               IpController.playControl.ClientNotif.setText("Opponent's Turn");}
+          } );
 
           while (GameOn){
                int[] ShootCoordination;
                
                ShootCoordination=board1.Clientshoot(1);
+               
                if (player1.Shot(ShootCoordination[0],ShootCoordination[1])){
                     display.PrintBoard(player1.Getboard());
                     NumberofshipsPlayer1--;
@@ -92,10 +102,16 @@ public class ClientGame {
                     IpController.playControl.PreviousMessage += "\nYou Lost! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
                  IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
+                 IpController.playControl.changeScene( "Lost.fxml");
                  Client_Thread.Stop=true;
                     break;
                }
+               
                ShootCoordination=board1.shoot(0);
+               Platform.runLater( new Runnable() {
+                    @Override public void run(){
+                    IpController.playControl.ClientNotif.setText("Opponent's Turn");}
+               } );
                if (player2.Shot(ShootCoordination[0],ShootCoordination[1])){
                     display.PrintBoard(player2.Getboard());
                     NumberofshipsPlayer2--;
@@ -108,6 +124,7 @@ public class ClientGame {
                     IpController.playControl.PreviousMessage += "\nYou Won! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
                  IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
+                 IpController.playControl2.changeScene( "YouWin.fxml");
                     Client_Thread.Stop=true;
 
                     break;

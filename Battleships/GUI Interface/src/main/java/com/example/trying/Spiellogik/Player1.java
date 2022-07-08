@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.example.trying.IpController;
 
+import javafx.scene.paint.Color;
+
 public class Player1 {
     private List<Ship> ships;
     private Board boardPlayer;
@@ -35,26 +37,28 @@ public class Player1 {
                     square.setSquarestat(SquareStatur.HIT);
                     boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.HIT);
                     System.out.println("Du hast Getroffen");
-                    IpController.playControl.PreviousMessage += "\nSuccessfuly hit ";
-                    IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
-                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
+                    // IpController.playControl.PreviousMessage += "\nSuccessfuly hit ";
+                    // IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                    // IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
+                    IpController.playControl.gridenemy[y][x].setFill(Color.ORANGE);
                     return true;
                 }else if (square.Gety()==y && square.Getx()==x && square.Getsquarestat().equals(SquareStatur.HIT)){
                     square.setSquarestat(SquareStatur.HIT);
                     boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.HIT);
                     System.out.println("Schon Getroffen");
-                    IpController.playControl.PreviousMessage += "\nAllready hit ";
-                    IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
-                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
+                    // IpController.playControl.PreviousMessage += "\nAllready hit ";
+                    // IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                    // IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
+                    IpController.playControl.gridenemy[y][x].setFill(Color.ORANGE);
                     return false;
                 }
             }
         }
         boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.MISSED);
         System.out.println("MISSED");
-        IpController.playControl.PreviousMessage += "\nMissed";
-        IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
-        IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
+        // IpController.playControl.PreviousMessage += "\nMissed";
+        // IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+        // IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
         return false;
 
     }

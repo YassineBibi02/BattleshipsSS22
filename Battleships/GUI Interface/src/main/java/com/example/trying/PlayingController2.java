@@ -19,7 +19,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,7 +30,6 @@ import java.util.ResourceBundle;
 
 
 import com.example.trying.Spiellogik.Input;
-import com.example.trying.Spiellogik.MainThread;
 
 public class PlayingController2 implements Initializable  {
     //All allied ships
@@ -52,8 +51,8 @@ public class PlayingController2 implements Initializable  {
 
     private Scene scene;
     static public Integer count = 0;
-
-    public static boolean Aasba = true;
+    public String PreviousMessage = "[Waiting For Second Player]";
+    public static boolean Aasba = false;
     public Integer test = 5 ;
 
     // private Parent root;
@@ -91,7 +90,7 @@ private Pane pane;
     private ArrayList<Ships> Ships;
     //All 2 2 dimensional arrays to keep track of the coordinates when we need them
     public  Rectangle[][] grid;
-    private Rectangle[][] gridenemy;
+    public Rectangle[][] gridenemy;
     /*
     A check box used to check whether a ship will be placed vertically or horizontally
     if its selected, ship will be placed horizontally on the grid going from the cursor to the right
@@ -100,15 +99,23 @@ private Pane pane;
     @FXML
     private CheckBox Horizontal;
 
+    @FXML
+    public Label ServerNotif;
+
+
+
 
 //Initialize method where all the magic happens
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //making the text are for the chat read only.
       Chat.setEditable(false);
+      Chat.setText(PreviousMessage);
       //Initializing the grids
+      
       ServerNotif.setText("Your Turn");
 
+      ServerNotif.setTextAlignment(TextAlignment.CENTER);
       grid = new Rectangle[spots][spots];
       gridenemy = new Rectangle[spots][spots];
       //Drawing allied battlefield.
@@ -218,8 +225,7 @@ private Pane pane;
     *
     *
     * */
-    @FXML
-    public Label ServerNotif;
+    
     
     public void released(MouseEvent event , Ships ship){
      
@@ -297,9 +303,9 @@ private Pane pane;
         ship.setY(squareSize/2 + squareSize * gridy);
         ship.draw();
         if(shipCounter==5){
-            HitAllowed = true;
+            // HitAllowed = true; // Reicht Nicht , muss Warten auf opponent
             Aasba = false;
-            System.out.printf("Asba is now %b", Aasba);
+            System.out.printf("Asba is now %b", Aasba); 
         }
     }
     /*
@@ -317,7 +323,7 @@ private Pane pane;
      * */
     @FXML
     private Button button_send;
-    public String PreviousMessage = "";
+    
     @FXML
     private TextField tf_message;
     @FXML 
@@ -351,8 +357,17 @@ private Pane pane;
 
 
     }
-    // public void presstest(){
-
-    //     Surr.fire();
-    // }
+    public void changeScene(String fxml){
+        Parent pane;
+        try {
+            
+            pane = FXMLLoader.load( getClass().getResource(fxml));
+            HelloApplication.PrimaryStage.getScene().setRoot(pane);
+        } catch (IOException e) {
+          System.out.println("Test 1821");  
+          e.printStackTrace();
+        }
+    
+       
+    }
 }

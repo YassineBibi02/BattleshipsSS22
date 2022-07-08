@@ -45,6 +45,8 @@ public class HelloController {
     public void Test(ActionEvent e){ // test = exit
         Stage stage = (Stage) Exit.getScene().getWindow();
         stage.close();
+        System.out.println("System Exit?");
+        System.exit(0);
 
     }
     @FXML

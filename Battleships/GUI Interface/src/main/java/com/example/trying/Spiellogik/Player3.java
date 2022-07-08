@@ -37,9 +37,9 @@ public class Player3 {
                     square.setSquarestat(SquareStatur.HIT);
                     boardPlayer.GetSquere(x,y).setSquarestat(SquareStatur.HIT);
                     System.out.println("Du hast Getroffen");
-                    IpController.playControl2.PreviousMessage += "\nYou've been hit ";
-                    IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
-                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
+                    // IpController.playControl2.PreviousMessage += "\nYou've been hit ";
+                    // IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    // IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     IpController.playControl2.grid[y][x].setFill(Color.ORANGE);
                     return true;
                 }else if (square.Gety()==y && square.Getx()==x && square.Getsquarestat().equals(SquareStatur.HIT)){

@@ -2,6 +2,7 @@ package com.example.trying.Spiellogik;
 
 import com.example.trying.*;
 
+import javafx.application.Platform;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -54,12 +55,16 @@ public class Game {
                }
 
           }
-          for ( ClientHanlder aClient : ServerThread.Clients ){
-               aClient.writer.println("/txtc "+"You can now Place your Ships");
-               aClient.writer.flush();
-          }
+          // for ( ClientHanlder aClient : ServerThread.Clients ){
+          //      aClient.writer.println("/txtc "+"You can now Place your Ships");
+          //      aClient.writer.flush();
+          // }
 
-          // PlayingController2.ServerNotif.setText("Opponent's Turn");
+          Platform.runLater( new Runnable() {
+               @Override public void run(){
+               IpController.playControl2.ServerNotif.setText("Opponent's Turn");}
+          } );
+          
           Input.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){                // Adversaire filling server side
                Ship one =board1.ServercreateShip(1);
@@ -86,11 +91,19 @@ public class Game {
           display.PrintBoard(boardPlayer2);
           int NumberofshipsPlayer1=player1.NumberOfSquareofShips(shipPlayer1);
           int NumberofshipsPlayer2=player2.NumberOfSquareofShips(shipPlayer2);
-          // PlayingController2.ServerNotif.setText("Your Turn");
-
+          Platform.runLater( new Runnable() {
+               @Override public void run(){
+               IpController.playControl2.ServerNotif.setText("Your Turn");}
+          } );
+          PlayingController2.HitAllowed = true;
           while (GameOn){
+               
                int[] ShootCoordination;
                ShootCoordination=board1.shoot(0);
+               Platform.runLater( new Runnable() {
+                    @Override public void run(){
+                    IpController.playControl2.ServerNotif.setText("Opponent's Turn");}
+               } );
                if (player2.Shot(ShootCoordination[0],ShootCoordination[1])){
                     display.PrintBoard(player2.Getboard());
                     NumberofshipsPlayer2--;
@@ -99,11 +112,13 @@ public class Game {
                }
                if (NumberofshipsPlayer2==0){
                     display.PrintBoard(player2.Getboard());
+                    
                     System.out.println("ABCD");
                     IpController.playControl2.PreviousMessage += "\nYou Won! (Please leave)";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
                     IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     ServerThread.Stop=true;
+                    IpController.playControl2.changeScene( "YouWin.fxml");
                     break;
                }
                ShootCoordination=board1.Servershoot(1);
@@ -119,6 +134,7 @@ public class Game {
                     IpController.playControl2.PreviousMessage += "\nYou Lost! (Please leave)";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
                     IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
+                    IpController.playControl2.changeScene( "Lost.fxml");
                     ServerThread.Stop=true;
                     break;
                }

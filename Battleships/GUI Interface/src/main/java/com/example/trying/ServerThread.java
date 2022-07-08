@@ -1,6 +1,7 @@
 package com.example.trying;
 
 import java.io.IOException;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class ServerThread implements Runnable{
     //  while ( !Stop ){       // a Loop to keep listening for new connections 
        while (  Counter == 0){
        System.out.println("[Server] Waiting for Connections ..");
+
        Socket Client = server.accept(); // connects client
        System.out.println("[Server] Connection established");
        ClientHanlder ClientThread = new ClientHanlder(Client, Clients); // New Class( aka thread but not really)
@@ -35,19 +37,29 @@ public class ServerThread implements Runnable{
        pool.execute(ClientThread); // Officially starts the Client
        Counter++;
 
+
+       PlayingController2.Aasba=true;
+       IpController.playControl2.PreviousMessage += "\n[Player Connected]\n[Game Started !]";
+       IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+       IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
+
        }
        while ( !Stop ){ try {
         Thread.sleep(20);
       } catch (InterruptedException e) {
         e.printStackTrace();
-      }
+      } 
      }
     
      System.out.println("[Server] Closed");
+    }
+    catch ( BindException e ){
+      System.out.println("[Server] Port Already On Use!");
     }catch(IOException e) {
-     System.out.print("[Server] Error at Server Side");
+     System.out.println("[Server] Error at Server Side");
      e.printStackTrace();
         
     }
+    
     
 }}

@@ -1,10 +1,7 @@
 package com.example.trying;
 import com.example.trying.Spiellogik.*;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.application.Platform;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -64,13 +61,18 @@ public class Client_Listener implements Runnable{
             Integer Two = Integer.valueOf(serverCommand.substring(Index+2)) ;
             ClientInput.SetClientCoordinates(Two / 10,Two % 10);
             System.out.println("Passed "+serverCommand); // DEBUG
-            IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage); // UPDATE 
+            // IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage); // UPDATE 
             IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
             
 
          }else if (serverCommand.startsWith("/hit")){
            PlayingController.HitAllowed = true;
         //    PlayingController.ClientNotif.setText("Your Turn");
+        
+        Platform.runLater( new Runnable() {
+            @Override public void run(){
+            IpController.playControl.ClientNotif.setText("Your Turn");}
+       } );
 
  
          } else if ( serverCommand.startsWith("/SURR")){
