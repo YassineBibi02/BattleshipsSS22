@@ -45,6 +45,7 @@ public class ClientGame {
               
                  IpController.playControl.PreviousMessage += "\nInvalid Placement";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                 IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
                  IpController.playControl.shipCounter--;
                  IpController.playControl.biggness++;
                  ClientInput.ShipNum1--;
@@ -90,6 +91,7 @@ public class ClientGame {
                     System.out.println("ANWSER AB");
                     IpController.playControl.PreviousMessage += "\nYou Lost! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                 IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
                  Client_Thread.Stop=true;
                     break;
                }
@@ -105,6 +107,7 @@ public class ClientGame {
                     System.out.println("ANWSER CD");
                     IpController.playControl.PreviousMessage += "\nYou Won! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                 IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
                     Client_Thread.Stop=true;
 
                     break;

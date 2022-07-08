@@ -39,6 +39,7 @@ public class Player {
                     System.out.println("Du hast Getroffen");
                     IpController.playControl.PreviousMessage += "\nYou've been hit ";
                     IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     IpController.playControl.grid[y][x].setFill(Color.ORANGE);
                     return true;
                 }else if (square.Gety()==y && square.Getx()==x && square.Getsquarestat().equals(SquareStatur.HIT)){

@@ -38,6 +38,7 @@ public class Game {
                     System.out.println("Inside Boucle");
                     IpController.playControl2.PreviousMessage += "\nInvalid Placement";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     IpController.playControl2.shipCounter--;
                     IpController.playControl2.biggness++;
                     Input.ShipNum1--;
@@ -101,6 +102,7 @@ public class Game {
                     System.out.println("ABCD");
                     IpController.playControl2.PreviousMessage += "\nYou Won! (Please leave)";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     ServerThread.Stop=true;
                     break;
                }
@@ -116,6 +118,7 @@ public class Game {
                     System.out.println("GEFG");
                     IpController.playControl2.PreviousMessage += "\nYou Lost! (Please leave)";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     ServerThread.Stop=true;
                     break;
                }

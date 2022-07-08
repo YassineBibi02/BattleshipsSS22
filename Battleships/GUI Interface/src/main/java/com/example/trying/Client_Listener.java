@@ -47,12 +47,15 @@ public class Client_Listener implements Runnable{
             int Index =  serverCommand.indexOf("b");
             IpController.playControl.PreviousMessage += "\n"+"Player1: "+serverCommand.substring(Index+2);
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+            IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
+
             System.out.println("Debug :"+serverCommand);
  
         }else  if (serverCommand.startsWith("/txtc")){           // The Command given by the server at the start of the Connection , so to assign it a proper name
             int Index =  serverCommand.indexOf("c");
             IpController.playControl.PreviousMessage += "\n"+serverCommand.substring(Index+2);
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+            IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
             System.out.println("Debug :"+serverCommand);
  
          } else if (serverCommand.startsWith("/spl")){
@@ -62,6 +65,7 @@ public class Client_Listener implements Runnable{
             ClientInput.SetClientCoordinates(Two / 10,Two % 10);
             System.out.println("Passed "+serverCommand); // DEBUG
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage); // UPDATE 
+            IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
             
 
          }else if (serverCommand.startsWith("/hit")){
@@ -75,6 +79,8 @@ public class Client_Listener implements Runnable{
             // System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
             IpController.playControl.PreviousMessage += "\nYou won! bras omek o5rej mil programme";
             IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
+            IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
+
             // System.out.println("SURRENDER PASSED");
 
               

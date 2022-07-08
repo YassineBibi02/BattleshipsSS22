@@ -37,6 +37,7 @@ public class Player2 {
                     System.out.println("Du hast Getroffen");
                     IpController.playControl2.PreviousMessage += "\nSuccessfuly hit ";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     return true;
                 }else if (square.Gety()==y && square.Getx()==x && square.Getsquarestat().equals(SquareStatur.HIT)){
                     square.setSquarestat(SquareStatur.HIT);
@@ -44,6 +45,7 @@ public class Player2 {
                     System.out.println("Schon Getroffen");
                     IpController.playControl2.PreviousMessage += "\nAllready hit ";
                     IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+                    IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                     return false;
                 }
             }
@@ -52,6 +54,7 @@ public class Player2 {
         System.out.println("MISSED");
         IpController.playControl2.PreviousMessage += "\nMissed";
         IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+        IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
         return false;
 
     }

@@ -66,6 +66,7 @@ public class ClientHanlder implements Runnable {
             //    System.out.printf("[Debug] [%s] Message: %s\n" ,extract_name(s),extract_Oldname(s) );
                IpController.playControl2.PreviousMessage += "\nPlayer2: "+extract_Oldname(s);
                IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+               IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                // PRINT OUT TO CONSOLE ??
              } else
              if (extract_text(s).startsWith("/spl")){
@@ -87,6 +88,7 @@ public class ClientHanlder implements Runnable {
                 // System.out.println("SURRENDER PASSED");
                 IpController.playControl2.PreviousMessage += "\nYou Won!";
                IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
+               IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                 ServerThread.Stop=true;
            
  

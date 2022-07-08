@@ -339,6 +339,7 @@ private Pane pane;
         PreviousMessage = CurrentChatMessage;
         tf_message.setText("");
         Chat.setText(CurrentChatMessage);
+        Chat.setScrollTop(Double.MAX_VALUE);
 
 
     }
