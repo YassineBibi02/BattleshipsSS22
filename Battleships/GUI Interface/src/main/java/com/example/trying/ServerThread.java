@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 public class ServerThread implements Runnable{
     protected static final String IP = "localhost"; 
-    protected static final int PORT = 1225;    
+    protected static int PORT = 1225;    
     public static final int THREAD_COUNT = 2; // the maximum number of  simultaneously Connected Clients
     public static boolean Stop = false;
     public static int Counter = 0;
@@ -29,6 +29,9 @@ public class ServerThread implements Runnable{
     //  while ( !Stop ){       // a Loop to keep listening for new connections 
        while (  Counter == 0){
        System.out.println("[Server] Waiting for Connections ..");
+
+       Socket TestConnection = server.accept(); // waits for test Connection
+
 
        Socket Client = server.accept(); // connects client
        System.out.println("[Server] Connection established");

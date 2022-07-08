@@ -9,8 +9,8 @@ import java.util.concurrent.Executors;
 
 public class server {
 
- protected static final String IP = "localhost"; 
- protected static final int PORT = 1225;    
+ protected static  String IP = "localhost"; 
+ protected static  int PORT = 1225;    
  private static final int THREAD_COUNT = 2; // the maximum number of  simultaneously Connected Clients
 
  private static ArrayList<ClientHanlder> Clients = new ArrayList<>();

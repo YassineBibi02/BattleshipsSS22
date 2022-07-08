@@ -49,6 +49,12 @@ public class PlayingController2 implements Initializable  {
     public ImageView ship5;
     private Stage stage;
 
+    @FXML
+    public Label IPfield;
+
+    @FXML
+    public Label PortField;
+
     private Scene scene;
     static public Integer count = 0;
     public String PreviousMessage = "[Waiting For Second Player]";
@@ -114,6 +120,8 @@ private Pane pane;
       //Initializing the grids
       
       ServerNotif.setText("Your Turn");
+      IPfield.setText("IP :"+ServerThread.IP);
+      PortField.setText(String.valueOf("Port :"+ServerThread.PORT));
 
       ServerNotif.setTextAlignment(TextAlignment.CENTER);
       grid = new Rectangle[spots][spots];

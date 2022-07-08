@@ -42,7 +42,7 @@ public class ClientHanlder implements Runnable {
          Naame = Name.Get_Name();      // Assign a Name to The Client in an Increasing fashion
          writer.println("/ws2 "+Naame);       // Pushes the Name Command to the Client
          EToAll("'"+ Naame +"' Connected");   // Custom Message send to Other Connected Users
-         while ( ( s = reader.readLine() ) != null && !ServerThread.Stop ) {
+         while ( ( s = reader.readLine() ) != null ) {
              if ( extract_text(s).startsWith("/dis")){ // if the Client wishes to disconnect Breaks the Listening Loop , thus ending the Connection and ending the thread
                 EToAll("'"+ extract_name(s) +"' Disconnected"); // broadcasts that the client is disconnected 
                 System.out.printf("[Server] '%s' Disconnected\n", extract_name(s));

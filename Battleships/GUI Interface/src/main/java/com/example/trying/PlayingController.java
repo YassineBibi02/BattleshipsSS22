@@ -35,6 +35,13 @@ public class PlayingController implements Initializable  {
     public Label ClientNotif;
     @FXML
     public ImageView Background;
+
+    @FXML
+    public Label IPfield;
+
+    @FXML
+    public Label PortField;
+
     public static boolean HitAllowed = false;
     public ImageView ship1;
     public ImageView ship2;
@@ -104,6 +111,9 @@ private Pane pane;
 
       ClientNotif.setText("Oppenent's Turn");
       ClientNotif.setTextAlignment(TextAlignment.CENTER);
+
+      IPfield.setText("IP :"+server.IP);
+      PortField.setText(String.valueOf("Port :"+server.PORT));
 
       grid = new Rectangle[spots][spots];
       gridenemy = new Rectangle[spots][spots];

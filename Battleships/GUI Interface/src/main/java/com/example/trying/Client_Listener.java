@@ -108,6 +108,7 @@ public class Client_Listener implements Runnable{
         e.printStackTrace();
     }finally{
         writer.close();
+        System.out.println("[ClientListener] Closed");
     }
        
         

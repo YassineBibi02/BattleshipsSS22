@@ -25,8 +25,13 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField layoutX="177.0" layoutY="152.0" prefHeight="25.0" prefWidth="243.0" />
-      <TextField layoutX="177.0" layoutY="218.0" prefHeight="25.0" prefWidth="243.0" />
+      <TextField fx:id="iP_Field" layoutX="177.0" layoutY="152.0" prefHeight="25.0" prefWidth="243.0" text="localhost" />
+      <TextField fx:id="Port_Field" layoutX="177.0" layoutY="218.0" prefHeight="25.0" prefWidth="243.0" promptText="6969" />
       <Button layoutX="241.0" layoutY="319.0" mnemonicParsing="false" onAction="#switchtoHosting" prefHeight="55.0" prefWidth="116.0" text="Host" />
+      <Label fx:id="Feedback" alignment="CENTER" layoutX="177.0" layoutY="255.0" prefHeight="22.0" prefWidth="243.0" textAlignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
