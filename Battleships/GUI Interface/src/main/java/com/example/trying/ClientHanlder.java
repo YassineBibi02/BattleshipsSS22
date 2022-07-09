@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 public class ClientHanlder implements Runnable {
@@ -107,6 +108,15 @@ public class ClientHanlder implements Runnable {
      
          }   
 //_________________________________________________________________________________________________________________________
+        }catch(SocketException e){
+            System.out.println("[ClientHandler]Server Stopped Working");
+            try {
+                IpController.playControl2.changeScene( "YouWin.fxml");
+                ServerThread.Stop=true;
+            } catch (Exception ee) {
+               System.out.println("No Change Scene was possible ");
+            }
+
         }
         catch( IOException e){
             System.out.println("[ClientHandler] Error Running the ClientHandler Thread!");

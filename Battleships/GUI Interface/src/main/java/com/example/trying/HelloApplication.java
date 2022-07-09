@@ -17,6 +17,8 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         PrimaryStage = stage;
         // Group root = new Group();
+
+        PrimaryStage.setOnCloseRequest(e -> CloseProgram());
         Image icon = new Image("Logo.png");
         Scene scene = new Scene(fxmlLoader.load(),Color.LIGHTBLUE);
         stage.getIcons().add(icon);
@@ -28,5 +30,14 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         Application.launch();
        
+    }
+
+
+    private  void CloseProgram(){ // test = exit
+       
+        PrimaryStage.close();
+        System.out.println("System Exit1?");
+        System.exit(0);
+
     }
 }
