@@ -14,7 +14,7 @@ public class ServerThread implements Runnable{
     protected static int PORT = 1225;    
     public static final int THREAD_COUNT = 2; // the maximum number of  simultaneously Connected Clients
     public static boolean Stop = false;
-    public static int Counter = 0;
+    public  int Counter = 0;
    
     public static ArrayList<ClientHanlder> Clients = new ArrayList<>();
     public static ExecutorService pool = Executors.newFixedThreadPool(THREAD_COUNT);
@@ -30,7 +30,7 @@ public class ServerThread implements Runnable{
        while (  Counter == 0){
        System.out.println("[Server] Waiting for Connections ..");
 
-       Socket TestConnection = server.accept(); // waits for test Connection
+       server.accept(); // waits for test Connection
 
 
        Socket Client = server.accept(); // connects client
@@ -55,6 +55,7 @@ public class ServerThread implements Runnable{
      }
     
      System.out.println("[Server] Closed");
+     server.close();
     }
     catch ( BindException e ){
       System.out.println("[Server] Port Already On Use!");

@@ -43,6 +43,8 @@ public class ClientGame {
                IpController.playControl.ClientNotif.setText("Your Turn");}
           } );
           PlayingController.Aasba = true;
+          Board.IsVertical=false  ;
+          IpController.playControl.Horizontal.setDisable(false);
           ClientInput.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){
             Ship one =board1.createShip(0);
@@ -85,6 +87,7 @@ public class ClientGame {
                IpController.playControl.ClientNotif.setText("Opponent's Turn");}
           } );
 
+          IpController.playControl.Horizontal.setDisable(true);
           while (GameOn){
                int[] ShootCoordination;
                

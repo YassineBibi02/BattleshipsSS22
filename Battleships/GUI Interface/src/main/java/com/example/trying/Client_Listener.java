@@ -97,6 +97,14 @@ public class Client_Listener implements Runnable{
             
 
          }else
+         if (serverCommand.startsWith("/HORIZONTAL")){
+            Board.IsVertical=false ; 
+
+         }else 
+         if (serverCommand.startsWith("/VERTICAL")){
+            Board.IsVertical=true  ;
+
+        }else 
         
         System.out.println(serverCommand);}
         }

@@ -59,7 +59,7 @@ public class ClientHanlder implements Runnable {
                
             }  else
             if ( extract_text(s).startsWith("/Disconnected")){  
-                ServerThread.Counter--;
+                // ServerThread.Counter--;
                
             }  else
             if ( extract_text(s).startsWith("/txtb")){  
@@ -100,6 +100,15 @@ public class ClientHanlder implements Runnable {
            
  
               }else 
+             if (extract_text(s).startsWith("/VERTICAL")){
+                Board.IsVertical=true; 
+ 
+             }
+             else
+             if (extract_text(s).startsWith("/HORIZONTAL")){
+                Board.IsVertical=false;
+
+             }
              {
              System.out.printf("[Server] [%s] : %s\n", extract_name(s),extract_text(s) ); // Feedback to Server System
              ToAll(s); // Sends the Message ( incase it doesnt have any commands ) to the connected clients
@@ -116,6 +125,7 @@ public class ClientHanlder implements Runnable {
             } catch (Exception ee) {
                System.out.println("No Change Scene was possible ");
             }
+            e.printStackTrace();
 
         }
         catch( IOException e){

@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class IpController {
@@ -99,7 +100,17 @@ public class IpController {
             return;
         }
        }else {Feedback.setText("Please Set a Port");return;}
+ 
 
+       try {
+        ServerSocket TestSocket = new ServerSocket(ServerThread.PORT);
+        System.out.println("Possible");
+        TestSocket.close();
+        
+       } catch (Exception e) {
+          Feedback.setText("Port already Used");
+          return;
+        }
 
 
         Thread T1=   new Thread(new ServerThread());

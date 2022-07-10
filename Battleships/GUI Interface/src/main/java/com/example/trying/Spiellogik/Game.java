@@ -64,15 +64,17 @@ public class Game {
                @Override public void run(){
                IpController.playControl2.ServerNotif.setText("Opponent's Turn");}
           } );
+          Board.IsVertical=false;
+          IpController.playControl2.Horizontal.setDisable(true);
           
           Input.ShipNum1=1; // Temporare ! 
           for (int i=0;i<5;i++){                // Adversaire filling server side
                Ship one =board1.ServercreateShip(1);
                if ( one.IsplacementOk(one, shipPlayer2, boardPlayer2)){
-                    System.out.println("IF TRUE");
+                    // System.out.println("IF TRUE");
                }
                while (one.IsplacementOk(one,shipPlayer2,boardPlayer2)==false){
-                    System.out.println("Inside Boucle");
+                    // System.out.println("Inside Boucle");
                     Input.ShipNum1--;
                     one=board1.ServercreateShip(0);
                    

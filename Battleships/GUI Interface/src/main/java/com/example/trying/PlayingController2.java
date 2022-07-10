@@ -28,7 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
+import com.example.trying.Spiellogik.Board;
 import com.example.trying.Spiellogik.Input;
 
 public class PlayingController2 implements Initializable  {
@@ -103,7 +103,7 @@ private Pane pane;
     if not it will be placed vertically from the cursor down.
     */
     @FXML
-    private CheckBox Horizontal;
+    public CheckBox Horizontal;
 
     @FXML
     public Label ServerNotif;
@@ -282,15 +282,19 @@ private Pane pane;
         }
        try{
         if (Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
-            grid [gridx][gridy].setFill(Color.GREEN);
-            for(int i=0;i < biggness; i++){
-                grid[gridx][gridy+ i].setFill(Color.GREEN);
+            // grid [gridx][gridy].setFill(Color.GREEN);
+            // for(int i=0;i < biggness; i++){
+            //     grid[gridx][gridy+ i].setFill(Color.GREEN);
+            // }
+
+
+
+            
+            // TE3 function tab3eth l horizontale 
+            if ( shipCounter < 5){
+                Input.setServerOwnCoordinates(gridy, gridx);
             }
             this.biggness--;
-
-
-            // TE3 function tab3eth l horizontale 
-
             shipCounter++;
         }}catch(ArrayIndexOutOfBoundsException e){
            System.out.println("Unable to place ship");
@@ -313,7 +317,7 @@ private Pane pane;
         if(shipCounter==5){
             // HitAllowed = true; // Reicht Nicht , muss Warten auf opponent
             Aasba = false;
-            System.out.printf("Asba is now %b", Aasba); 
+            System.out.printf("Asba is now %b\n", Aasba); 
         }
     }
     /*
@@ -378,4 +382,29 @@ private Pane pane;
     
        
     }
+
+     public void Set_Vertical(ActionEvent e){
+        System.out.printf("BEFORE : Boolean is %b \n", Board.IsVertical);
+       if (!Aasba){ Horizontal.setSelected(false); ;return; }
+
+        if ( Horizontal.isSelected() ){Board.IsVertical=true  ;
+            for ( ClientHanlder aClient : ServerThread.Clients ){
+                aClient.writer.println("/VERTICAL");
+                aClient.writer.flush();
+            } 
+        }
+        else {Board.IsVertical=false ; 
+            for ( ClientHanlder aClient : ServerThread.Clients ){
+                aClient.writer.println("/HORIZONTAL");
+                aClient.writer.flush();
+            }
+        }
+        System.out.printf("AFTER : Boolean is %b \n", Board.IsVertical);
+        
+
+     }
+
+
+
+
 }

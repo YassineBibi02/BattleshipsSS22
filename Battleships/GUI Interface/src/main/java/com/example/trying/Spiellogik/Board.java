@@ -4,6 +4,9 @@ package com.example.trying.Spiellogik;
 public class Board {
     private int SizeX;
     private int SizeY;
+
+
+    public static boolean IsVertical = false ; 
     Squere board[][];
 
     public Board(int x,int y){
@@ -41,6 +44,16 @@ public class Board {
 
     //put the Ship on the Board.
     public void BuiltShip(Squere square, Ship ship){
+        if ( IsVertical ){BuiltShipVertical(square, ship);}
+        else { BuiltShipHorizontal(square, ship);}
+        return;
+
+    }
+
+
+
+
+    public void BuiltShipHorizontal(Squere square, Ship ship){
         switch (ship.GettypevonShip().Getlabel()){
             case  1:
                 square.setSquarestat(SquareStatur.SHIP);

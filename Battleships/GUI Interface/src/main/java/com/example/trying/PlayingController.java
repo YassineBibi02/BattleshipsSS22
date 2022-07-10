@@ -98,7 +98,7 @@ private Pane pane;
     if not it will be placed vertically from the cursor down.
     */
     @FXML
-    private CheckBox Horizontal;
+	public CheckBox Horizontal;
 
 
 //Initialize method where all the magic happens
@@ -111,6 +111,8 @@ private Pane pane;
 
       ClientNotif.setText("Oppenent's Turn");
       ClientNotif.setTextAlignment(TextAlignment.CENTER);
+    
+      Horizontal.setDisable(true);
 
       IPfield.setText("IP :"+server.IP);
       PortField.setText(String.valueOf("Port :"+server.PORT));
@@ -263,16 +265,19 @@ public  int biggness = 5;
         }
        try{
         if (Horizontal.isSelected() && shipCounter != 5 && grid[gridx][gridy].getFill() != Color.GREEN){
-            grid [gridx][gridy].setFill(Color.GREEN);
-            for(int i=0;i < biggness; i++){
-                grid[gridx][gridy+ i].setFill(Color.GREEN);
-            }
-            this.biggness--;
+            // grid [gridx][gridy].setFill(Color.GREEN);
+            // for(int i=0;i < biggness; i++){
+            //     grid[gridx][gridy+ i].setFill(Color.GREEN);
+            // }
+          
 
-
+            if (shipCounter < 5 ){
+                ClientInput.setClientOwnCoordinates(gridy, gridx); 
+                
+                }
             // Sends the XY Cordinates to the vertical Shit
             
-            
+            this.biggness--;
             shipCounter++;
         }}catch(ArrayIndexOutOfBoundsException e){
            System.out.println("Unable to place ship");
@@ -364,6 +369,18 @@ public  int biggness = 5;
     
        
     }
+    public void Set_Vertical(ActionEvent e){
+        System.out.printf("BEFORE : Boolean is %b  \n", Board.IsVertical);
+        if ( !Aasba){ Horizontal.setSelected(false);return; }
+        if ( Horizontal.isSelected() ){Board.IsVertical=true  ;
+            Client_Thread.writer.println("Player2#/VERTICAL");
+            Client_Thread.writer.flush(); }
+        else {Board.IsVertical=false ;
+            Client_Thread.writer.println("Player2#/HORIZONTAL");
+            Client_Thread.writer.flush(); } 
+        System.out.printf("AFTER :Boolean is %b \n", Board.IsVertical);
+
+     }
 
 
 
