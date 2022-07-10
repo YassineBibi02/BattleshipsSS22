@@ -18,32 +18,16 @@ public class ClientBattleship {
     }
 
     public void MainMenu(){
-        int choice;
-        boolean exit=false;
-        // input=new Input();
-
-        while (!exit){
-            // display.PrintMainMenuOption();
-            // System.out.println("Gib dein Auswahl");
-            // System.out.println();
-            // choice=input.GetIntMenuOption();
-            choice = 0;
-            switch (choice){
-                case 0:
-                    display.PrintMessage("you choosed to play the Game");
-                    game.GameLogik();
-                    break;
-                case 1:
-                    System.out.flush();
-                    display.gameRules();
-                case 2:
-                    display.PrintMessage("byyyy ");
-                    ExitGame();
-                    break;
-                
-
-            }
-        }
+       
+       
+         
+          
+          display.PrintMessage("you choosed to play the Game");
+          game.GameLogik();
+          return;
+           
+            
+        
     }
 
     public void ExitGame(){

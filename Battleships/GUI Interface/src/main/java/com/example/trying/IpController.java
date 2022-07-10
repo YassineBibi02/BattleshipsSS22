@@ -74,6 +74,7 @@ public class IpController {
         T1.start();
         ClientGame=  new Thread(new MainThreadClient());
         ClientGame.start();
+        
        
         
         

@@ -111,8 +111,10 @@ public class Client_Listener implements Runnable{
     }catch ( IOException e ) {
         System.out.println("[Client] Disconnected");
         try {
+            if ( !Board.legit ){
             IpController.playControl.changeScene( "YouWin.fxml");
-            Client_Thread.Stop= true;
+            Client_Thread.Stop= true;}
+           
         } catch (Exception ee) {
            System.out.println("No Change Scene was possible ");
         }

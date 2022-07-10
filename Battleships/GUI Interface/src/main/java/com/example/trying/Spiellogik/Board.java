@@ -7,6 +7,7 @@ public class Board {
 
 
     public static boolean IsVertical = false ; 
+    public static boolean legit = false;
     Squere board[][];
 
     public Board(int x,int y){
