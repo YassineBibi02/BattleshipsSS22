@@ -96,7 +96,7 @@ public class ClientHanlder implements Runnable {
                 IpController.playControl2.Chat.setScrollTop(Double.MAX_VALUE);
                 ServerThread.Stop=true;
              
-                IpController.playControl.changeScene( "YouWin.fxml");
+                IpController.playControl2.changeScene( "YouWin.fxml");
            
  
               }else 
