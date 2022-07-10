@@ -64,7 +64,7 @@ public class PlayingController implements Initializable  {
 
 
         
-        root = FXMLLoader.load(getClass().getResource("Lost.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Lost.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);

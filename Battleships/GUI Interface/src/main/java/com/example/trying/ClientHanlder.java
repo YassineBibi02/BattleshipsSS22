@@ -88,8 +88,8 @@ public class ClientHanlder implements Runnable {
              }else if (extract_text(s).startsWith("/SURR")){
                 // Closes ServerGame Thread
 
-                HelloController.ipControl.ServerGame.stop();
-                System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
+                // HelloController.ipControl.ServerGame.stop();
+                // System.out.printf("Running : %b \n", HelloController.ipControl.ClientGame.isInterrupted());
                 // System.out.println("SURRENDER PASSED");
                 IpController.playControl2.PreviousMessage += "\nYou Won!";
                 IpController.playControl2.Chat.setText(IpController.playControl2.PreviousMessage);
