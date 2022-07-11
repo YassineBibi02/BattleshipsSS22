@@ -127,7 +127,7 @@ public class ClientGame {
                     IpController.playControl.PreviousMessage += "\nYou Won! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
                  IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
-                 IpController.playControl.changeScene( "YouWin.fxml");
+                 IpController.playControl.changeScene( "Lost.fxml");
                     Client_Thread.Stop=true;
 
                     break;

@@ -1,6 +1,7 @@
 package com.example.trying;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -20,5 +21,13 @@ public class YouWinController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    @FXML
+    public void Test(ActionEvent e){ // test = exit
+        Stage stage = (Stage) Exit.getScene().getWindow();
+        stage.close();
+        System.out.println("System Exit?");
+        System.exit(0);
+
     }
 }
