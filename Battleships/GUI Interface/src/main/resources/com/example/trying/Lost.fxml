@@ -24,7 +24,7 @@
             <Font name="System Bold Italic" size="75.0" />
          </font>
       </Label>
-      <Button layoutX="235.0" layoutY="389.0" mnemonicParsing="false" onAction="#switchtoMain" prefHeight="69.0" prefWidth="168.0" text="Quit" />
+      <Button fx:id="Quit" layoutX="235.0" layoutY="389.0" mnemonicParsing="false" onAction="#Test" prefHeight="69.0" prefWidth="168.0" text="Quit" />
       <ImageView fitHeight="275.0" fitWidth="484.0" layoutX="154.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Explosion.png" />

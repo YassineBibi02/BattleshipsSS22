@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -25,12 +26,6 @@ import java.util.ResourceBundle;
 import com.example.trying.Spiellogik.*;
 
 public class PlayingController implements Initializable  {
-    //All allied ships
-    /*Ships ship01= new Ships(5,true);
-    Ships ship02 = new Ships(4,true);
-    Ships ship03 = new Ships(3,true);
-    Ships ship04 = new Ships(2,true);
-    Ships ship05 = new Ships(2,true);*/
     @FXML
     public Label ClientNotif;
     @FXML
@@ -43,11 +38,16 @@ public class PlayingController implements Initializable  {
     public Label PortField;
 
     public static boolean HitAllowed = false;
+    @FXML
     public ImageView ship1;
-    public ImageView ship2;
-    public ImageView ship3;
-    public ImageView ship4;
-    public ImageView ship5;
+    @FXML
+    public  ImageView ship2;
+    @FXML
+    public  ImageView ship3;
+    @FXML
+    public  ImageView ship4;
+    @FXML
+    public  ImageView ship5;
     public Stage stage;
     private Scene scene;
     public Button Surr;
@@ -104,6 +104,17 @@ private Pane pane;
 //Initialize method where all the magic happens
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image ship01 = new Image("ShipCarrierHull.png");
+        Image ship02 = new Image("ShipBattleshipHull.png");
+        Image ship03 = new Image("ShipDestroyerHull.png");
+        Image ship04 = new Image("ShipPatrolHull.png");
+        Image ship05 = new Image("ShipRescue.png");
+        this.ship1.setImage(ship01);
+        this.ship2.setImage(ship02);
+        this.ship3.setImage(ship03);
+        this.ship4.setImage(ship04);
+        this.ship5.setImage(ship05);
+
         //making the text are for the chat read only.
       Chat.setEditable(false);
       Chat.setText(PreviousMessage);
@@ -299,6 +310,11 @@ public  int biggness = 5;
         ship.draw();
         if(shipCounter == 5){
             Aasba = false;
+            ship1.setImage(null);
+            ship2.setImage(null);
+            ship3.setImage(null);
+            ship4.setImage(null);
+            ship5.setImage(null);
         }
     }}
     /*

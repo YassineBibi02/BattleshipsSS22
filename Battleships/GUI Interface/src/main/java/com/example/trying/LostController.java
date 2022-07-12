@@ -1,10 +1,12 @@
 package com.example.trying;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,6 +14,8 @@ import java.io.IOException;
 public class LostController {
     private Stage stage;
     private Scene scene;
+    @FXML
+    private Button Quit;
 
     // private Parent root;
     public void switchtoMain(ActionEvent event) throws IOException {
@@ -20,5 +24,13 @@ public class LostController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    @FXML
+    public void Test(ActionEvent e){ // test = exit
+        Stage stage = (Stage) Quit.getScene().getWindow();
+        stage.close();
+        System.out.println("System Exit?");
+        System.exit(0);
+
     }
 }

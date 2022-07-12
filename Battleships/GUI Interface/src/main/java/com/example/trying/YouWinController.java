@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,6 +16,8 @@ public class YouWinController {
     private Scene scene;
 
     private Parent root;
+    @FXML
+    private Button Quit;
     public void switchtoMain(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("hello-view.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -24,7 +27,7 @@ public class YouWinController {
     }
     @FXML
     public void Test(ActionEvent e){ // test = exit
-        Stage stage = (Stage) Exit.getScene().getWindow();
+        Stage stage = (Stage) Quit.getScene().getWindow();
         stage.close();
         System.out.println("System Exit?");
         System.exit(0);

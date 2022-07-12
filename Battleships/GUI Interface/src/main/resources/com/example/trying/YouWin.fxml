@@ -19,7 +19,7 @@
             <Font name="System Bold Italic" size="59.0" />
          </font>
       </Label>
-      <Button layoutX="242.0" layoutY="390.0" mnemonicParsing="false" onAction="#switchtoMain" prefHeight="66.0" prefWidth="156.0" text="Quit" />
+      <Button fx:id="Quit" layoutX="242.0" layoutY="390.0" mnemonicParsing="false" onAction="#Test" prefHeight="66.0" prefWidth="156.0" text="Quit" />
       <ImageView fitHeight="265.0" fitWidth="156.0" layoutX="254.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../Medal.png" />

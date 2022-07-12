@@ -16,6 +16,7 @@ public class Game {
      public Board boardPlayer2;
      List<Board> boards;
      public Ship one ;
+     public static int shipCounter = 0;
 
      public void GameLogik(){
           Input board1=new Input();
@@ -53,6 +54,23 @@ public class Game {
                     System.out.printf("Size at %d ,index : %d\n",one.GetNewShip().size(), j);
                     IpController.playControl2.grid[one.GetNewShip().get(j).Gety()][one.GetNewShip().get(j).Getx()].setFill(Color.GREEN);
                }
+               shipCounter++;
+            //Removing images
+            if(shipCounter == 1){
+                IpController.playControl2.ship1.setVisible(false);
+            }
+            if(shipCounter == 2){
+                IpController.playControl2.ship2.setVisible(false);
+            }
+            if(shipCounter == 3){
+                IpController.playControl2.ship3.setVisible(false);
+            }
+            if(shipCounter == 4){
+                IpController.playControl2.ship4.setVisible(false);
+            }
+            if(shipCounter == 5){
+                IpController.playControl2.ship5.setVisible(false);
+            }
 
           }
           // for ( ClientHanlder aClient : ServerThread.Clients ){

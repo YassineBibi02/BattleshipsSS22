@@ -18,6 +18,7 @@ public class ClientGame {
      private List<Ship> shipPlayer2=new ArrayList<>();
      public  boolean GameOn;
      List<Board> boards;
+     public static int shipCounter = 0;
      
 
      public void GameLogik(){
@@ -69,6 +70,23 @@ public class ClientGame {
           }
           
             shipPlayer1.add(one);
+            shipCounter++;
+            //Removing images
+            if(shipCounter == 1){
+                IpController.playControl.ship1.setVisible(false);
+            }
+            if(shipCounter == 2){
+                IpController.playControl.ship2.setVisible(false);
+            }
+            if(shipCounter == 3){
+                IpController.playControl.ship3.setVisible(false);
+            }
+            if(shipCounter == 4){
+                IpController.playControl.ship4.setVisible(false);
+            }
+            if(shipCounter == 5){
+                IpController.playControl.ship5.setVisible(false);
+            }
        }
           Player player1=new Player(shipPlayer1,boardPlayer2);
           Player1 player2=new Player1(shipPlayer2,boardPlayer1);
@@ -127,7 +145,7 @@ public class ClientGame {
                     IpController.playControl.PreviousMessage += "\nYou Won! ( Please leave xD ) ";
                  IpController.playControl.Chat.setText(IpController.playControl.PreviousMessage);
                  IpController.playControl.Chat.setScrollTop(Double.MAX_VALUE);
-                 IpController.playControl.changeScene( "Lost.fxml");
+                 IpController.playControl.changeScene( "YouWin.fxml");
                     Client_Thread.Stop=true;
 
                     break;

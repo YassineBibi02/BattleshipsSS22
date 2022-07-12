@@ -39,7 +39,7 @@ public class Client_Thread implements Runnable{
             }
             System.out.println("[Client] Connected");
             gestopped = false;
-            //----------------------------------------------------Paused for Server( No Client Connection )----------------------------------------------------
+//----------------------------------------------------Paused for Server( No Client Connection )----------------------------------------------------
 //             do{
 //               try {
                 

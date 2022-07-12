@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trying.PlayingController">
+<AnchorPane fx:id="Pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trying.PlayingController">
    <children>
       <ImageView fx:id="Background" fitHeight="496.0" fitWidth="666.0" layoutX="-21.0" layoutY="-3.0" opacity="0.56" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -43,15 +43,15 @@
             <Image url="@../../../ShipPatrolHull.png" />
          </image>
       </ImageView>
-      <Line endX="1.0" endY="196.2928924560547" layoutX="264.0" layoutY="9.0" startX="1.0" startY="-9.0" />
-      <Line endX="157.0" layoutX="107.0" layoutY="206.0" startX="-114.0" />
+      <Line endX="1.0" endY="212.0" layoutX="264.0" layoutY="9.0" startX="1.0" startY="-9.0" />
+      <Line endX="160.5" endY="0.5" layoutX="105.0" layoutY="221.0" startX="-114.0" />
       <TextArea fx:id="Chat" layoutX="8.0" layoutY="304.0" prefHeight="141.0" prefWidth="255.0" />
-      <ImageView fx:id="ship1" fitHeight="176.0" fitWidth="43.0" layoutX="14.0" layoutY="15.0" pickOnBounds="true">
+      <ImageView fx:id="ship1" fitHeight="176.0" fitWidth="43.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true">
          <image>
             <Image url="@../../../ShipCarrierHull.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ship5" fitHeight="78.0" fitWidth="15.0" layoutX="208.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ship5" fitHeight="78.0" fitWidth="15.0" layoutX="215.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../ShipRescue.png" />
          </image>
