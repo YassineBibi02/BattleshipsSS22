@@ -19,6 +19,8 @@ public class HelloApplication extends Application {
         // Group root = new Group();
 
         PrimaryStage.setOnCloseRequest(e -> CloseProgram());
+        PrimaryStage.setResizable(false);
+        
         Image icon = new Image("Logo.png");
         Scene scene = new Scene(fxmlLoader.load(),Color.LIGHTBLUE);
         stage.getIcons().add(icon);
